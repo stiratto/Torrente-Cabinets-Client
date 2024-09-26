@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Field from "../components/FieldInput";
 import ReCAPTCHA from "react-google-recaptcha";
-import { schemaYup } from "../components/Schema";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,15 +12,18 @@ import { ToastAction } from "@/components/ui/toast";
 import { useEffect, useState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BCASchema } from "@/schemas/bca_schema";
 
 const BCA = () => {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     reValidateMode: "onChange",
-    resolver: yupResolver(schemaYup),
+    resolver: yupResolver(BCASchema),
     criteriaMode: "all",
   });
 
@@ -67,7 +69,7 @@ const BCA = () => {
     // If token is true (user is logged in) let the user send a dealer request
     if (token) {
       setIsLoading(true);
-      await fetch("https://jesus-torrente-cab-server.onrender.com/dealerForm", {
+      await fetch(`${apiUrl}/dealerForm`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

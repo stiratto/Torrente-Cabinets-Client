@@ -14,7 +14,11 @@ const CartDropdown = () => {
     Array<{ id: any; details: any; imageUrl: any }>
   >([]);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const displayCartItems = async () => {
+
+
     // Get the actual content of localStorage.
     const storedItems = localStorage.getItem("products");
     const existingItems = storedItems ? JSON.parse(storedItems) : [];
@@ -33,7 +37,7 @@ const CartDropdown = () => {
 
           // Makes a request and gets the product with the corresponding ID
           const response = await fetch(
-            `https://jesus-torrente-cab-server.onrender.com/getCartProducts/${productId.id}`
+            `${apiUrl}/getCartProducts/${productId.id}`
           );
 
           // If response goes bad, throws a new error with the productID.

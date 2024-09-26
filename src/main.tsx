@@ -20,6 +20,7 @@ import RegisteredUsers from "./components/AdminPage/RegisteredUsers.tsx";
 import AdminHome from "./pages/AdminHome.tsx";
 import DealerRequests from "./components/AdminPage/DealerRequests.tsx";
 import AddProduct from "./pages/AddProduct.tsx";
+import ProductPage from "./components/Products/ProductPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Route path="/torrentekcb/about" element={<About />}></Route>
       <Route path="/torrentekcb/contact" element={<Contact />}></Route>
       <Route path="/torrentekcb/myaccount" element={<MyAccount />}></Route>
+      <Route path="/torrentekcb/product/:id" element={<ProductPage/>}></Route>
       <Route
         path="/torrentekcb/register"
         element={

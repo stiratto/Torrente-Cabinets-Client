@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([
@@ -22,11 +23,13 @@ const Shop = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const getProducts = async () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://jesus-torrente-cab-server.onrender.com/getProducts"
+        `${apiUrl}/getProducts`
       );
       if (!response.ok) {
         console.error("Failed to fetch product data");
@@ -44,7 +47,7 @@ const Shop = () => {
     try {
       // Get details of the product, including the image URL.
       const response = await fetch(
-        `https://jesus-torrente-cab-server.onrender.com/getProductDetails/${id}`
+        `${apiUrl}/getProductDetails/${id}`
       );
       const productDetails = await response.json();
 
@@ -79,10 +82,12 @@ const Shop = () => {
     }
   };
 
+
+
   const deleteProduct = async (id: number) => {
     try {
       const response = await fetch(
-        `https://jesus-torrente-cab-server.onrender.com/deleteProduct/${id}`,
+        `${apiUrl}/deleteProduct/${id}`,
         {
           method: "DELETE",
         }
@@ -118,7 +123,9 @@ const Shop = () => {
       {isLoading && <Loader2Icon className="animate-spin mx-auto" />}
       {!isLoading &&
         products.map((product) => (
-          <div
+          <Link
+            to={`/torrentekcb/product/${product.id}`}
+            state={{ product }}
             key={product.id}
             className="p-8 container max-w-lg bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700"
           >
@@ -152,7 +159,7 @@ const Shop = () => {
                 )}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </div>
   );

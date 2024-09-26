@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import emailjs from "emailjs-com";
 import { Button } from "@/components/ui/button";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -11,6 +10,7 @@ import { ArrowRightSquare, Loader2, MapPinned, Phone } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Toaster } from "@/components/ui/toaster";
+import { ContactSchema } from "@/schemas/contact_schema";
 
 const Contact = () => {
   const [capVal, setCapVal] = useState(null);
@@ -21,24 +21,13 @@ const Contact = () => {
   const [submitError, setSubmitError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const phoneRegex =
-    /^(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/;
-
-  const schema = yup.object().shape({
-    first_name: yup.string().required("This field is required"),
-    last_name: yup.string().required("This field is required"),
-    phone_number: yup.string().matches(phoneRegex, "Phone number is not valid"),
-    email_address: yup.string().required("This field is required").email(),
-    message: yup.string().required("This field is required"),
-  });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(ContactSchema),
   });
 
   const onSubmit = () => {

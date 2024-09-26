@@ -22,11 +22,13 @@ const AdminHome = () => {
   const [requests, setRequests] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const getDealerRequests = async () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://jesus-torrente-cab-server.onrender.com/getDealerRequests"
+        `${apiUrl}/api/getDealerRequests`
       );
       if (response.ok) {
         const data = await response.json();
@@ -44,7 +46,7 @@ const AdminHome = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://jesus-torrente-cab-server.onrender.com/getRegisteredUsers?take=100000"
+        `${apiUrl}/api/getRegisteredUsers?take=100000`
       );
       if (response.ok) {
         const data = await response.json();
@@ -62,7 +64,7 @@ const AdminHome = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://jesus-torrente-cab-server.onrender.com/getAdmins"
+        `${apiUrl}/api/getAdmins`
       );
       if (response.ok) {
         const data = await response.json();

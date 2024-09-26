@@ -6,6 +6,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import GotoHomeBtn from "./GotoHomeBtn";
 
 const DealerRequests = () => {
+
+  const apiUrl = import.meta.env.VITE_API_URL
+
   const [requests, setRequests] = useState([
     {
       id: "",
@@ -27,7 +30,7 @@ const DealerRequests = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        "https://jesus-torrente-cab-server.onrender.com/getDealerRequests"
+        `${apiUrl}/getDealerRequests`
       );
       if (response.ok) {
         const data = await response.json();
@@ -43,7 +46,7 @@ const DealerRequests = () => {
 
   const acceptRequest = async (userId: any, requestId: any) => {
     await fetch(
-      "https://jesus-torrente-cab-server.onrender.com/acceptRequest",
+      `${apiUrl}/acceptRequest`,
       {
         method: "PUT",
         headers: {
@@ -54,7 +57,7 @@ const DealerRequests = () => {
     );
   };
   const denieRequest = async (requestId: any) => {
-    await fetch("https://jesus-torrente-cab-server.onrender.com/denieRequest", {
+    await fetch(`${apiUrl}/denieRequest`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

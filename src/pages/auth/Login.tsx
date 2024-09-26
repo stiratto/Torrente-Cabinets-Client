@@ -1,6 +1,7 @@
 import Field from "@/components/FieldInput";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
+import { LoginSchema } from "@/schemas/login_schema";
 // @ts-ignore
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,9 +14,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 // @ts-ignore
 import { Link, Redirect, useNavigate } from "react-router-dom";
-import * as yup from "yup";
 
 const Login = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [user, setUser] = useState({
     name: "",
     password: "",
@@ -23,20 +25,15 @@ const Login = () => {
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
 
-  const schema = yup.object().shape({
-    name: yup.string().required("This field is required"),
-    password: yup.string().required("This field is required"),
-  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     reValidateMode: "onChange",
-    resolver: yupResolver(schema),
+    resolver: yupResolver(LoginSchema),
     criteriaMode: "all",
   });
 
@@ -50,7 +47,7 @@ const Login = () => {
 
   const onSubmit = async () => {
     setIsLoading(true);
-    await fetch("https://jesus-torrente-cab-server.onrender.com/login", {
+    await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

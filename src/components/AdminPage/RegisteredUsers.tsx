@@ -22,6 +22,8 @@ import GotoHomeBtn from "./GotoHomeBtn";
 
 // TODO: COMMENT AND ORGANIZE EVERYTHING ON THIS FILE
 const RegisteredUsers = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [registeredUsers, setRegisteredUsers] = useState([
     {
       id: "",
@@ -33,7 +35,7 @@ const RegisteredUsers = () => {
   const getRegisteredUsers = async () => {
     try {
       const response = await fetch(
-        "https://jesus-torrente-cab-server.onrender.com/getRegisteredUsers?take=5"
+        `${apiUrl}/getRegisteredUsers?take=5`
       );
       if (response.ok) {
         const data = await response.json();
@@ -51,7 +53,7 @@ const RegisteredUsers = () => {
   const getRegisteredUsersByRole = async (role: string) => {
     try {
       const response = await fetch(
-        `https://jesus-torrente-cab-server.onrender.com/filterUsersByRole/${role}`
+        `${apiUrl}/filterUsersByRole/${role}`
       );
       if (response.ok) {
         const data = await response.json();

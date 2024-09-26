@@ -15,6 +15,8 @@ const AddProduct = () => {
   const [product_image, setProduct_image] = useState<File | null>(null);
   const { toast } = useToast();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const cardStyles = {
     formcontrol: "border p-3 rounded-lg ",
   };
@@ -55,7 +57,7 @@ const AddProduct = () => {
     product_image && formData.append("product_image", product_image);
 
     await fetch(
-      "https://jesus-torrente-cab-server.onrender.com/createProduct",
+      `${apiUrl}/createProduct`,
       {
         method: "POST",
         body: formData,

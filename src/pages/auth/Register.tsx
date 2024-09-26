@@ -2,6 +2,7 @@ import Field from "@/components/FieldInput";
 import { ToastAction } from "@/components/ui/toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
+import { RegisterSchema } from "@/schemas/register_schema";
 // @ts-ignore
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,9 +10,10 @@ import { Check } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import * as yup from "yup";
 
 const Register = () => {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState({
     name: "",
     password: "",
@@ -19,22 +21,13 @@ const Register = () => {
   });
   const { toast } = useToast();
 
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-  const schemaRegister = yup.object().shape({
-    name: yup.string().required("This field is required"),
-    password: yup.string().matches(passwordRegex, "Password is not valid"),
-    confirm_password: yup
-      .string()
-      .oneOf([yup.ref("password")], "It should be the same as the password"),
-  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     reValidateMode: "onChange",
-    resolver: yupResolver(schemaRegister),
+    resolver: yupResolver(RegisterSchema),
     criteriaMode: "all",
   });
 
@@ -47,7 +40,7 @@ const Register = () => {
   };
 
   const onSubmit = async () => {
-    await fetch("https://jesus-torrente-cab-server.onrender.com/register", {
+    await fetch(`${apiUrl}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
