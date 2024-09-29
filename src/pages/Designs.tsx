@@ -14,7 +14,7 @@ const Designs = () => {
             showrooms to envision how your new kitchen or bathroom can take
             shape.
           </p>
-          <Link to={"/torrentekcb/contact"}>
+          <Link reloadDocument to={"/torrentekcb/contact"}>
             <button className="bg-red-500 text-white font-medium p-4 rounded-full w-52 mx-auto hover:scale-105 active:scale-90 transition-all">
               Request consultation
             </button>

@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-
   const apiUrl = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState({
     name: "",
@@ -37,6 +36,8 @@ const Register = () => {
       ...user,
       [name]: value,
     });
+    hasAlpha();
+    hasNumber();
   };
 
   const onSubmit = async () => {
@@ -53,7 +54,9 @@ const Register = () => {
           title: "Your account has been created! You now can login",
           action: (
             <ToastAction altText="Goto schedule to undo">
-              <Link to={"/torrentekcb/login"}>Goto login</Link>
+              <Link reloadDocument to={"/torrentekcb/login"}>
+                Goto login
+              </Link>
             </ToastAction>
           ),
         });
@@ -72,6 +75,55 @@ const Register = () => {
         });
       }
     });
+  };
+
+  const hasUpper = () => {
+    let i = 0
+    let color = "red"
+    user.password = user.password.toString()
+    
+    while (i < user.password.length) {
+      if (user.password[i] == user.password[i].toUpperCase() && user.password[i] !== user.password[i].toLowerCase()) {
+        color = "green";
+        break;
+      }
+      i += 1
+    }
+    return color
+  }
+
+  const hasLower = () => {
+    let i = 0
+    let color = "red"
+    user.password = user.password.toString()
+    
+    while (i < user.password.length) {
+      if (user.password[i] == user.password[i].toLowerCase() && user.password[i] !== user.password[i].toUpperCase()) {
+        color = "green";
+        break;
+      }
+      i += 1
+    }
+    return color
+  }
+
+  const hasNumber = () => {
+    const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    user.password = user.password.toString();
+    let i = 0;
+    let color = "red"
+    
+    while (i < user.password.length) {
+
+      if (numbers.includes(user.password[i])) {
+        color = "green"
+        break
+      } else {
+        color = "red"
+      }
+      i += 1;
+    }
+    return color
   };
 
   return (
@@ -138,18 +190,24 @@ const Register = () => {
             <div className="w-full">
               <ul className="mt-2 border-x-2 border-b-2 pb-2 text-sm list-none list w-full p-4">
                 <li className="flex items-center gap-2 ">
-                  <Check size={20} /> Atleast 8 characters
+                  <Check
+                    size={20}
+                    color={user.password.length >= 8 ? "green" : "red"}
+                  />{" "}
+                  Atleast 8 characters
                 </li>
                 <li className="flex items-center gap-2">
                   {" "}
-                  <Check size={20} />1 uppercase letter
+                  <Check size={20} color={hasUpper()} />1
+                  uppercase letter
                 </li>
                 <li className="flex items-center gap-2">
                   {" "}
-                  <Check size={20} /> 1 lowercase letter
+                  <Check size={20} color={hasLower()} /> 1 lowercase letter
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={20} /> 1 number
+                  <Check size={20} color={hasNumber()} /> 1
+                  number
                 </li>
               </ul>
             </div>
@@ -157,6 +215,7 @@ const Register = () => {
           <p>
             Already have an account?{" "}
             <Link
+              reloadDocument
               to={"/torrentekcb/login"}
               className="text-yellow-300 underline  underline-offset-2"
             >

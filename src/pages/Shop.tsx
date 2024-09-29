@@ -124,6 +124,7 @@ const Shop = () => {
       {!isLoading &&
         products.map((product) => (
           <Link
+            reloadDocument
             to={`/torrentekcb/product/${product.id}`}
             state={{ product }}
             key={product.id}

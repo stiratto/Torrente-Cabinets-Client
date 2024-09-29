@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 const GotoHomeBtn = () => {
   return (
-    <Link to={"/torrentekcb/admin"} className="self-start mb-8 mx-3">
+    <Link reloadDocument to={"/torrentekcb/admin"} className="self-start mb-8 mx-3">
       <Button>Goto home</Button>
     </Link>
   );

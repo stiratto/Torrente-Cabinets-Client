@@ -17,6 +17,7 @@ const PageNotFound = () => {
           </p>
           <div className="mt-5 flex flex-col justify-center items-center gap-2 sm:flex-row sm:gap-3">
             <Link
+              reloadDocument
               className="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-yellow-400 hover:text-red-500 focus:outline-none focus:ring-2 ring-offset-white focus:text-red-500 focus:ring-offset-2 transition-all text-lg py-3 px-4 dark:ring-offset-slate-900 outline-none"
               to="/"
             >

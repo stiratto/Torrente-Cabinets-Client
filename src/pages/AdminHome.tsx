@@ -87,7 +87,7 @@ const AdminHome = () => {
     <article className="p-8 ">
       <div className="flex flex-col gap-8 max-w-5xl mx-auto">
         <section>
-          <Link to={"/torrentekcb/admin/dealerrequests"}>
+          <Link reloadDocument to={"/torrentekcb/admin/dealerrequests"}>
             <Card className=" hover:shadow-lg duration-200   text-start">
               <CardHeader>
                 <CardTitle>Dealer Requests</CardTitle>
@@ -117,7 +117,7 @@ const AdminHome = () => {
         </section>
 
         <section>
-          <Link to={"/torrentekcb/admin/registeredUsers"}>
+          <Link reloadDocument to={"/torrentekcb/admin/registeredUsers"}>
             <Card className=" hover:shadow-lg duration-200  text-start ">
               <CardHeader>
                 <CardTitle>Registered Users</CardTitle>
@@ -144,7 +144,7 @@ const AdminHome = () => {
         </section>
 
         <section>
-          <Link to={"/torrentekcb/admin/shop/addproduct"} className="">
+          <Link reloadDocument to={"/torrentekcb/admin/shop/addproduct"} className="">
             <Card className="hover:shadow-lg duration-200  text-start px-5">
               <CardTitle>Add products</CardTitle>
               <CardDescription className="">

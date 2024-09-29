@@ -15,7 +15,7 @@ const Footer = () => {
       <Separator />
       <div className="py-14 px-14 flex flex-col items-center  gap-8 lg:flex-row">
         <div className="self-center">
-          <Link to={"/"}>
+          <Link reloadDocument to={"/"}>
             <img src="https://i0.wp.com/torrentekitchenandbath.com/wp-content/uploads/2023/07/download-1.png?w=225&ssl=1"></img>
           </Link>
         </div>

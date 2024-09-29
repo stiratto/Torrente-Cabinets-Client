@@ -7,10 +7,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
 // @ts-ignore
 import { ToastAction } from "@radix-ui/react-toast";
+import { EyeIcon, EyeOffIcon, Loader2Icon } from "lucide-react";
 
-import { Loader2Icon } from "lucide-react";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 // @ts-ignore
 import { Link, Redirect, useNavigate } from "react-router-dom";
@@ -30,6 +29,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     reValidateMode: "onChange",
@@ -43,10 +43,10 @@ const Login = () => {
       ...user,
       [name]: value,
     });
+    setValue(name, value);
   };
 
-  const onSubmit = async () => {
-    setIsLoading(true);
+  const onSubmit = async (e: any) => {
     await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
@@ -76,6 +76,10 @@ const Login = () => {
       });
   };
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <article className="h-screen flex justify-center w-full items-center flex-col px-8">
       <section className="shadow-lg p-8 rounded-lg w-full max-w-lg">
@@ -99,15 +103,27 @@ const Login = () => {
               <p className="text-red-500 text-sm text-start">{message}</p>
             )}
           />
-          <Field
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            name="password"
-            value={user.password}
-            register={register}
-            onChange={handleChange}
-            className="p-3 rounded-lg  border focus:border-red-500"
-          />
+
+          <div className="flex">
+            <Field
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              name="password"
+              value={user.password}
+              register={register}
+              onChange={handleChange}
+              className="p-3 rounded-lg  border focus:border-red-500 w-full"
+            />
+            <button
+              id="check"
+              onClick={() => setShowPassword(!showPassword)}
+              className="relative -left-8 w-0"
+              type="button"
+              value={user.password}
+            >
+              {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+            </button>
+          </div>
           <ErrorMessage
             errors={errors}
             name="password"
@@ -115,16 +131,6 @@ const Login = () => {
               <p className="text-red-500 text-sm text-start">{message}</p>
             )}
           />
-
-          <div className="flex items-center gap-2">
-            <label htmlFor="check">Show Password</label>
-            <input
-              id="check"
-              type="checkbox"
-              value={user.password}
-              onChange={() => setShowPassword((prev) => !prev)}
-            />
-          </div>
 
           <button
             type="submit"
@@ -142,6 +148,7 @@ const Login = () => {
           <p>
             Don't have an account?{" "}
             <Link
+              reloadDocument
               to="/torrentekcb/register"
               className="text-yellow-500 underline  underline-offset-2"
             >

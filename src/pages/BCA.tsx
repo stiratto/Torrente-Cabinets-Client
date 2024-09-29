@@ -107,7 +107,7 @@ const BCA = () => {
         description: "You need to log in before sending a dealer request!",
         action: (
           <ToastAction altText="Go to login">
-            <Link to={"/torrentekcb/login"}>Go to login</Link>
+            <Link reloadDocument to={"/torrentekcb/login"}>Go to login</Link>
           </ToastAction>
         ),
       });

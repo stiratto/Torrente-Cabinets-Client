@@ -80,7 +80,7 @@ const Dropdown = () => {
 
         {userInfo?.role === "ADMIN" ? (
           // If user role is admin, show the admin private button
-          <Link to={"/torrentekcb/admin"}>
+          <Link reloadDocument to={"/torrentekcb/admin"}>
             <DropdownMenuGroup className="hover:cursor-pointer">
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger className="flex flex-row items-center gap-2">
@@ -89,12 +89,13 @@ const Dropdown = () => {
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="p-3">
-                    <Link to={"/torrentekcb/admin/dealerRequests"}>
+                    <Link reloadDocument to={"/torrentekcb/admin/dealerRequests"}>
                       <DropdownMenuItem className="hover:cursor-pointer">
                         Dealer Requests
                       </DropdownMenuItem>
                     </Link>
                     <Link
+                      reloadDocument
                       to={"/torrentekcb/admin/registeredUsers"}
                       className="hover:cursor-pointer"
                     >
@@ -103,6 +104,7 @@ const Dropdown = () => {
                       </DropdownMenuItem>
                     </Link>
                     <Link
+                      reloadDocument
                       to={"/torrentekcb/admin/shop/addproduct"}
                       className="hover:cursor-pointer"
                     >
@@ -122,7 +124,7 @@ const Dropdown = () => {
 
         {userInfo ? (
           // If user is logged in, show the logout button
-          <Link to="/" onClick={logOut}>
+          <Link reloadDocument to="/" onClick={logOut}>
             <DropdownMenuItem className="hover:cursor-pointer flex items-center gap-2 ">
               <LogOut size={15} />
               Logout
@@ -131,13 +133,13 @@ const Dropdown = () => {
         ) : (
           // Else, show the authorization buttons
           <div className="flex flex-col">
-            <Link to={"/torrentekcb/register"}>
+            <Link reloadDocument to={"/torrentekcb/register"}>
               <DropdownMenuItem className="flex items-center gap-2 hover:cursor-pointer">
                 <KeyRound />
                 Register
               </DropdownMenuItem>
             </Link>
-            <Link to={"/torrentekcb/login"}>
+            <Link reloadDocument to={"/torrentekcb/login"}>
               <DropdownMenuItem className="flex items-center gap-2 hover:cursor-pointer">
                 <KeySquare />
                 Login

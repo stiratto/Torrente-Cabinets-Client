@@ -1,11 +1,12 @@
+
 interface FieldProps {
-  name: string;
-  value: any;
+  name?: string;
+  value?: any;
   type: string | number;
   register: any; // Ajusta el tipo según la biblioteca que estés utilizando
-  className: any;
-  onChange: any;
-  placeholder: string;
+  className?: any;
+  onChange?: any;
+  placeholder: any;
   rows?: number;
 }
 
