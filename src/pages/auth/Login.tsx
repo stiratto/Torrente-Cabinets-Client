@@ -46,7 +46,7 @@ const Login = () => {
     setValue(name, value);
   };
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async () => {
     await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {

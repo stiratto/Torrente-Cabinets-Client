@@ -36,7 +36,8 @@ const Register = () => {
       ...user,
       [name]: value,
     });
-    hasAlpha();
+    hasLower()
+    hasUpper();
     hasNumber();
   };
 
