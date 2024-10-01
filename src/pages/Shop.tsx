@@ -119,7 +119,7 @@ const Shop = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap flex-col md:flex-row items-center gap-8 p-8">
+    <div className={products.length > 10 ? "h-auto flex flex-wrap flex-col md:flex-row items-center gap-8 p-8" : "h-screen  flex flex-wrap flex-col md:flex-row items-center gap-8 p-8"}>
       {isLoading && <Loader2Icon className="animate-spin mx-auto" />}
       {!isLoading &&
         products.map((product) => (
