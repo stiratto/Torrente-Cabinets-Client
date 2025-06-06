@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import cardStyles from "@/components/AdminPage/cardStyles";
 import { Skeleton } from "@/components/ui/skeleton";
 import GotoHomeBtn from "./GotoHomeBtn";
+import { adminApi} from "@/api";
 
 const DealerRequests = () => {
 
-  const apiUrl = import.meta.env.VITE_API_URL
 
   const [requests, setRequests] = useState([
     {
@@ -24,46 +24,39 @@ const DealerRequests = () => {
     },
   ]);
 
+
   const [isLoading, setIsLoading] = useState(false);
 
   const getDealerRequests = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${apiUrl}/getDealerRequests`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRequests(data);
-      } else {
-        throw new Error("Failed to fetch dealer requests");
-      }
+      const data = await adminApi.getDealerRequests();
+      setRequests(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
-  const acceptRequest = async (userId: any, requestId: any) => {
-    await fetch(
-      `${apiUrl}/acceptRequest`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: userId, id: requestId }),
-      }
-    );
+  const acceptRequest = async (userId: string, requestId: string) => {
+    try {
+      await adminApi.acceptRequest(userId, requestId);
+      // Refresh the requests list
+      getDealerRequests();
+    } catch (error) {
+      console.error("Error accepting request:", error);
+    }
   };
-  const denieRequest = async (requestId: any) => {
-    await fetch(`${apiUrl}/denieRequest`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: requestId }),
-    });
+
+  const denieRequest = async (requestId: string) => {
+    try {
+      await adminApi.denyRequest(requestId);
+      // Refresh the requests list
+      getDealerRequests();
+    } catch (error) {
+      console.error("Error denying request:", error);
+    }
   };
 
   // Pagination

@@ -5,17 +5,20 @@ import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { Link } from "react-router-dom";
-
+import { productsApi } from "@/api";
+interface Product {
+  product_name: string;
+  product_description: string;
+  product_price: number;
+  product_quantity: number;
+  product_image?: File;
+}
 const AddProduct = () => {
-  const [product_name, setProduct_name] = useState("");
-  const [product_description, setProduct_description] = useState("");
-  const [product_price, setProduct_price] = useState("");
-  const [product_quantity, setProduct_quantity] = useState("");
-
+  const [productData, setProductData] = useState<Product>({} as Product);
+  
   const [product_image, setProduct_image] = useState<File | null>(null);
   const { toast } = useToast();
 
-  const apiUrl = import.meta.env.VITE_API_URL;
 
   const cardStyles = {
     formcontrol: "border p-3 rounded-lg ",
@@ -26,43 +29,23 @@ const AddProduct = () => {
   ) => {
     const { name, value } = e.target;
 
-    switch (name) {
-      case "product_name":
-        setProduct_name(value);
-        break;
-      case "product_price":
-        setProduct_price(value);
-        break;
-      case "product_description":
-        setProduct_description(value);
-        break;
-      case "product_quantity":
-        setProduct_quantity(value);
-        break;
-      // Add other cases if needed
-
-      default:
-        break;
-    }
+    setProductData({...productData, [name]: value});
   };
 
   const onSubmit = async (ev: any) => {
     ev.preventDefault();
 
     const formData = new FormData();
-    formData.append("product_name", product_name);
-    formData.append("product_price", product_price);
-    formData.append("product_description", product_description);
-    formData.append("product_quantity", product_quantity);
-    product_image && formData.append("product_image", product_image);
+    console.log(productData)
 
-    await fetch(
-      `${apiUrl}/createProduct`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    formData.append("product_name", productData.product_name);
+    formData.append("product_price", productData.product_price.toString());
+    formData.append("product_description", productData.product_description);
+    formData.append("product_quantity", productData.product_quantity.toString());
+    product_image && formData.append("product_image", product_image);
+    
+   
+    await productsApi.createProduct(formData)
       .then(() => {
         toast({
           variant: "default",

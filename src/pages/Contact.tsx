@@ -12,7 +12,7 @@ import { ToastAction } from "@/components/ui/toast";
 import { Toaster } from "@/components/ui/toaster";
 import { ContactSchema } from "@/schemas/contact_schema";
 
-const Contact = () => {
+export const Contact = () => {
   const [capVal, setCapVal] = useState(null);
   const { toast } = useToast();
 
@@ -323,4 +323,3 @@ const Contact = () => {
   );
 };
 
-export default Contact;

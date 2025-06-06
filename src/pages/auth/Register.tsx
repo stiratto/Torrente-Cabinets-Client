@@ -10,6 +10,7 @@ import { Check } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { authApi } from "@/api";
 
 const Register = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -42,40 +43,33 @@ const Register = () => {
   };
 
   const onSubmit = async () => {
-    await fetch(`${apiUrl}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then((response) => {
-      if (response.status === 200) {
-        toast({
-          variant: "default",
-          title: "Your account has been created! You now can login",
-          action: (
-            <ToastAction altText="Goto schedule to undo">
-              <Link reloadDocument to={"/torrentekcb/login"}>
-                Goto login
-              </Link>
-            </ToastAction>
-          ),
-        });
-        setUser({
-          name: "",
-          password: "",
-          confirm_password: "",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "An account with that name already exists! try using another",
-          action: (
-            <ToastAction altText="Goto schedule to undo">Try again</ToastAction>
-          ),
-        });
-      }
-    });
+    try {
+      await authApi.register(user);
+      toast({
+        variant: "default",
+        title: "Your account has been created! You now can login",
+        action: (
+          <ToastAction altText="Goto schedule to undo">
+            <Link reloadDocument to={"/torrentekcb/login"}>
+              Goto login
+            </Link>
+          </ToastAction>
+        ),
+      });
+      setUser({
+        name: "",
+        password: "",
+        confirm_password: "",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "An account with that name already exists! try using another",
+        action: (
+          <ToastAction altText="Goto schedule to undo">Try again</ToastAction>
+        ),
+      });
+    }
   };
 
   const hasUpper = () => {

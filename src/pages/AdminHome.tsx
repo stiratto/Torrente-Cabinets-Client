@@ -9,6 +9,7 @@ import { Loader2Icon } from "lucide-react";
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { adminApi } from "@/api";
 
 const AdminHome = () => {
   const [registeredUsers, setRegisteredUsers] = useState([{}]);
@@ -22,60 +23,40 @@ const AdminHome = () => {
   const [requests, setRequests] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const getDealerRequests = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${apiUrl}/api/getDealerRequests`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRequests(data);
-      } else {
-        throw new Error("Failed to fetch dealer requests");
-      }
+      const data = await adminApi.getDealerRequests();
+      setRequests(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const getRegisteredUsers = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${apiUrl}/api/getRegisteredUsers?take=100000`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRegisteredUsers(data);
-      } else {
-        throw new Error("Failed to fetch dealer requests");
-      }
+      const data = await adminApi.getRegisteredUsers({ take: 100000 });
+      setRegisteredUsers(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const getAdmins = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${apiUrl}/api/getAdmins`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setAdmins(data);
-      } else {
-        throw new Error("Failed to fetch dealer requests");
-      }
+      const data = await adminApi.getAdmins();
+      setAdmins(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {

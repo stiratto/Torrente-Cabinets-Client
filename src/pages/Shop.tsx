@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { productsApi } from "@/api";
 
 const Shop = () => {
   const [products, setProducts] = useState([
@@ -21,37 +22,25 @@ const Shop = () => {
     role: "",
   });
 
+  const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(false);
-
-  const apiUrl = import.meta.env.VITE_API_URL;
 
   const getProducts = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${apiUrl}/getProducts`
-      );
-      if (!response.ok) {
-        console.error("Failed to fetch product data");
-        return;
-      }
-      const data = await response.json();
+      const data = await productsApi.getProducts();
       setProducts(data);
-      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const addToCart = async (id: number) => {
     try {
-      // Get details of the product, including the image URL.
-      const response = await fetch(
-        `${apiUrl}/getProductDetails/${id}`
-      );
-      const productDetails = await response.json();
+      const productDetails = await productsApi.getProductDetails(id);
 
-      // Get the actual content of localStorage.
       const storedItems = localStorage.getItem("products");
       const existingItems = storedItems ? JSON.parse(storedItems) : [];
 
@@ -75,34 +64,22 @@ const Shop = () => {
 
       // Store the updated list on localStoerage
       localStorage.setItem("products", JSON.stringify(existingItems));
-
-      console.log(`Producto ${id} agregado al carrito.`);
+      console.log(`Product ${id} added to cart.`);
     } catch (error) {
-      console.error(`Error al agregar el producto ${id} al carrito:`, error);
+      console.error(`Error adding product ${id} to cart:`, error);
     }
   };
 
-
-
   const deleteProduct = async (id: number) => {
     try {
-      const response = await fetch(
-        `${apiUrl}/deleteProduct/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        console.log("Product deleted");
-      } else {
-        console.log("There was an error deleting the product");
-      }
+      await productsApi.deleteProduct(id);
+      console.log("Product deleted");
+      // Refresh products list
+      getProducts();
     } catch (err) {
       console.log("There was an error", err);
     }
   };
-
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     getProducts();
@@ -164,7 +141,6 @@ const Shop = () => {
         ))}
     </div>
   );
-  // ...
 };
 
 export default Shop;

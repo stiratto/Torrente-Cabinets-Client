@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BCASchema } from "@/schemas/bca_schema";
+import { dealerApi } from "@/api";
 
 const BCA = () => {
 
@@ -68,36 +69,29 @@ const BCA = () => {
   const onSubmit = async () => {
     // If token is true (user is logged in) let the user send a dealer request
     if (token) {
-      setIsLoading(true);
-      await fetch(`${apiUrl}/dealerForm`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      try {
+        setIsLoading(true);
+        await dealerApi.submitDealerRequest({
           ...dealer,
           userId: userInfo.id,
-        }),
-      }).then((response) => {
-        if (response.ok) {
-          setIsLoading(false);
-          toast({
-            variant: "default",
-            title:
-              "Your application has been sent, we'll review it and answer at your personal email address, redirecting... ",
-            description: format(new Date(), "'Submitted at:' MMMM, EEEE, yyyy"),
-            action: (
-              <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            ),
-          });
-        } else {
-          setIsLoading(false);
-          toast({
-            variant: "destructive",
-            title: "Company email already exists, try another one",
-          });
-        }
-      });
+        });
+        setIsLoading(false);
+        toast({
+          variant: "default",
+          title:
+            "Your application has been sent, we'll review it and answer at your personal email address, redirecting... ",
+          description: format(new Date(), "'Submitted at:' MMMM, EEEE, yyyy"),
+          action: (
+            <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+          ),
+        });
+      } catch (error) {
+        setIsLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Company email already exists, try another one",
+        });
+      }
     } else {
       // If the user is not logged in, remove the loading icon and display a error toast
       setIsLoading(false);

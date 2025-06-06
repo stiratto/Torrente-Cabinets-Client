@@ -13,7 +13,7 @@ import {
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { KeyRound, KeySquare, LockKeyhole, LogOut, User2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 
 const Dropdown = () => {
   const [userInfo, setUserInfo] = useState({
@@ -133,13 +133,13 @@ const Dropdown = () => {
         ) : (
           // Else, show the authorization buttons
           <div className="flex flex-col">
-            <Link reloadDocument to={"/torrentekcb/register"}>
+            <Link  to={"/torrentekcb/register"}>
               <DropdownMenuItem className="flex items-center gap-2 hover:cursor-pointer">
                 <KeyRound />
                 Register
               </DropdownMenuItem>
             </Link>
-            <Link reloadDocument to={"/torrentekcb/login"}>
+            <Link  to={"/torrentekcb/login"}>
               <DropdownMenuItem className="flex items-center gap-2 hover:cursor-pointer">
                 <KeySquare />
                 Login

@@ -17,10 +17,14 @@ const PrivateDealerRoute = ({ children }: any) => {
       }
     };
 
+
     const user = parseJwt(token);
+
     setUserInfo(user);
+    console.log(userInfo)
   }, []);
-  return userInfo?.role === "DEALER" ? <Navigate to={"/"} /> : children;
+  
+  return userInfo?.role === "DEALER" ? <Navigate to={"/not-found"} /> : children  ;
 };
 
 export default PrivateDealerRoute;

@@ -8,53 +8,27 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
+import { productsApi } from "@/api";
 
 const CartDropdown = () => {
   const [products, setProducts] = useState<
     Array<{ id: any; details: any; imageUrl: any }>
   >([]);
 
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const displayCartItems = async () => {
-
-
     // Get the actual content of localStorage.
     const storedItems = localStorage.getItem("products");
     const existingItems = storedItems ? JSON.parse(storedItems) : [];
 
     const productDetails = await Promise.all(
-      // Maps through existingItems (the localStorage content)
       existingItems.map(async (productId: any) => {
         try {
-          // If there is not a product ID, throws an error.
           if (!productId) {
-            console.error("ID del producto no definido:", productId);
-            throw new Error("ID del producto no definido");
+            console.error("Product ID not defined:", productId);
+            throw new Error("Product ID not defined");
           }
 
-          // console.log("Product ID:", productId);
-
-          // Makes a request and gets the product with the corresponding ID
-          const response = await fetch(
-            `${apiUrl}/getCartProducts/${productId.id}`
-          );
-
-          // If response goes bad, throws a new error with the productID.
-          if (!response.ok) {
-            console.error(
-              `Error en la solicitud para el producto ${productId}: ${response.status}`
-            );
-            throw new Error(
-              `Error en la solicitud para el producto ${productId}`
-            );
-          }
-
-          // If response results well, stores the data that the response sent into a variable
-
-          const productData = await response.json();
-
-          // console.log("Product Data:", productData);
+          const productData = await productsApi.getCartProducts(productId.id);
 
           return {
             id: productId,
@@ -62,9 +36,7 @@ const CartDropdown = () => {
             imageUrl: productId.imageUrl,
           };
         } catch (error) {
-          console.error(`Error al procesar el producto ${productId}:`, error);
-
-          // Handle the error and return an object with the product ID
+          console.error(`Error processing product ${productId}:`, error);
           return {
             id: productId,
             details: null,
@@ -74,9 +46,6 @@ const CartDropdown = () => {
     );
 
     setProducts(productDetails);
-
-    // Do something with the product details, for example, display them on the console.
-    // console.log("Detalles del carrito:", productDetails);
   };
 
   // Calculate the total of all the products that are on the cart (including the quantity of how many products are of the same ID)

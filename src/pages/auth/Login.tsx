@@ -2,21 +2,16 @@ import Field from "@/components/FieldInput";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { LoginSchema } from "@/schemas/login_schema";
-// @ts-ignore
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
-// @ts-ignore
 import { ToastAction } from "@radix-ui/react-toast";
 import { EyeIcon, EyeOffIcon, Loader2Icon } from "lucide-react";
-
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-// @ts-ignore
-import { Link, Redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authApi } from "@/api";
 
 const Login = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const [user, setUser] = useState({
     name: "",
     password: "",
@@ -47,38 +42,21 @@ const Login = () => {
   };
 
   const onSubmit = async () => {
-    await fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setIsLoading(true);
-          return response.json(); // Parse the response JSON
-        } else {
-          setIsLoading(false);
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong",
-            description:
-              "We didn't found a valid user with those credentials :(",
-          });
-          throw new Error("Error in response"); // Throw an error to stop further execution
-        }
-      })
-      .then((data) => {
-        localStorage.setItem("token", data);
-        navigate("/");
-        location.reload();
+    try {
+      setIsLoading(true);
+      const token = await authApi.login(user);
+      localStorage.setItem("token", token);
+      navigate("/");
+      location.reload();
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong",
+        description: "We didn't found a valid user with those credentials :(",
       });
+    }
   };
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <article className="h-screen flex justify-center w-full items-center flex-col px-8">

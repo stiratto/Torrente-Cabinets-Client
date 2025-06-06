@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import {
   Menu,
   ShoppingCart,
@@ -78,7 +78,7 @@ export default function Navbar() {
       <div className="flex  " aria-label="primary menu">
         <Sheet>
           <div className="flex items-center justify-between w-full  py-3 md:py-5 md:flex md:justify-between  ">
-            <Link reloadDocument to="/" className="flex items-center gap-5 ">
+            <Link to="/" className="flex items-center gap-5 ">
               <img
                 src="https://i0.wp.com/torrente15.files.wordpress.com/2023/11/adsadsasd.png?ssl=1"
                 alt="torrente logo"
@@ -107,7 +107,7 @@ export default function Navbar() {
                     key={idx}
                   >
                     {item.icon}
-                    <Link reloadDocument to={item.path}>
+                    <Link  to={item.path}>
                       <p className="text-md  tracking-wide font-medium uppercase">
                         {item.title}
                       </p>
@@ -128,7 +128,7 @@ export default function Navbar() {
                   // If the user is not a dealer, show the button
                   <li className="list-none">
                     <Link
-                      reloadDocument
+                      
                       to="/torrentekcb/becomeadealer"
                       className="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold shadow text-red-500 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group"
                     >
@@ -187,7 +187,7 @@ export default function Navbar() {
                   key={idx}
                   className=" active:text-yellow-500 duration-200"
                 >
-                  <Link reloadDocument to={item.path} className="flex items-center gap-3">
+                  <Link  to={item.path} className="flex items-center gap-3">
                     {item.icon}
                     {item.title}
                   </Link>
@@ -204,7 +204,7 @@ export default function Navbar() {
                   ) : (
                     <SheetHeader>
                       <Link
-                        reloadDocument
+                        
                         to="/torrentekcb/becomeadealer"
                         className="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold shadow text-red-500 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group"
                       >

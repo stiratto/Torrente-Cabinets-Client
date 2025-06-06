@@ -19,11 +19,10 @@ import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import { Button } from "../ui/button";
 import GotoHomeBtn from "./GotoHomeBtn";
+import { adminApi } from "@/api";
 
 // TODO: COMMENT AND ORGANIZE EVERYTHING ON THIS FILE
 const RegisteredUsers = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const [registeredUsers, setRegisteredUsers] = useState([
     {
       id: "",
@@ -34,17 +33,10 @@ const RegisteredUsers = () => {
 
   const getRegisteredUsers = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/getRegisteredUsers?take=5`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRegisteredUsers(data);
-      } else {
-        throw new Error("Failed to fetch dealer requests");
-      }
+      const data = await adminApi.getRegisteredUsers({ take: 5 });
+      setRegisteredUsers(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching registered users:", error);
     }
   };
 
@@ -52,17 +44,10 @@ const RegisteredUsers = () => {
 
   const getRegisteredUsersByRole = async (role: string) => {
     try {
-      const response = await fetch(
-        `${apiUrl}/filterUsersByRole/${role}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRegisteredUsers(data);
-      } else {
-        throw new Error("Failed to fetch dealer requests");
-      }
+      const data = await adminApi.filterUsersByRole(role);
+      setRegisteredUsers(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error filtering users by role:", error);
     }
   };
 
