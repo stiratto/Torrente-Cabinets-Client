@@ -3,6 +3,7 @@ import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { productsApi } from "@/api";
+import { addToCart } from "@/lib/utils";
 
 const Shop = () => {
   const [products, setProducts] = useState([
@@ -34,39 +35,6 @@ const Shop = () => {
       console.error("Error fetching products:", error);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const addToCart = async (id: number) => {
-    try {
-      const productDetails = await productsApi.getProductDetails(id);
-
-      const storedItems = localStorage.getItem("products");
-      const existingItems = storedItems ? JSON.parse(storedItems) : [];
-
-      // Verify if the product is on the cart.
-      const existingProductIndex = existingItems.findIndex(
-        (item: any) => item.id === id
-      );
-
-      if (existingProductIndex !== -1) {
-        // If the product is already on the cart, increase the quantity.
-        existingItems[existingProductIndex].quantity += 1;
-      } else {
-        console.log(productDetails.url);
-        // If the product is not on the cart, add it with the quantity of 1.
-        existingItems.push({
-          id,
-          quantity: 1,
-          imageUrl: productDetails.url,
-        });
-      }
-
-      // Store the updated list on localStoerage
-      localStorage.setItem("products", JSON.stringify(existingItems));
-      console.log(`Product ${id} added to cart.`);
-    } catch (error) {
-      console.error(`Error adding product ${id} to cart:`, error);
     }
   };
 
@@ -113,11 +81,9 @@ const Shop = () => {
                 src={product.imageUrl}
                 alt="Product image"
               />
-              <a href="#">
-                <h5 className="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">
-                  {product.product_name}
-                </h5>
-              </a>
+              <h5 className="text-xl text-start font-semibold tracking-tight text-gray-900 dark:text-white">
+                {product.product_name}
+              </h5>
               <div className="flex justify-between items-center text-start gap-3">
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">
                   ${product.product_price},00

@@ -51,6 +51,7 @@ const RegisteredUsers = () => {
     }
   };
 
+
   useEffect(() => {
     // Llama a la función getRegisteredUsers cuando sea necesario, por ejemplo, cuando el componente se monte.
     getRegisteredUsers();

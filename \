@@ -1,0 +1,96 @@
+// CartDropdown.js
+import { useState, useEffect } from "react";
+import { ShoppingCart } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "../ui/button";
+import { productsApi } from "@/api";
+import { CartProductCard } from "./CartProductCard";
+import { CartProduct } from "@/lib/interfaces/Product.Interface";
+import { useCartContext } from "@/context/cartContext";
+
+const CartDropdown = () => {
+  const [products, setProducts] = useState<
+    Array<CartProduct>
+  >([]);
+  const {cart, setCart} = useCartContext()
+
+  const displayCartItems = async () => {
+    // Get the actual content of localStorage.
+
+    const productDetails = await Promise.all(
+      cart.map(async (product) => {
+        try {
+          if (!product) {
+            console.error("Product ID not defined:", product.id);
+            throw new Error("Product ID not defined");
+          }
+
+          const productData = await productsApi.getCartProducts(product.id);
+
+          return {
+            id: productId,
+            details: productData.length > 0 ? productData[0] : null,
+            imageUrl: productId.imageUrl,
+          };
+        } catch (error) {
+          console.error(`Error processing product ${productId}:`, error);
+          return {
+            id: productId,
+            details: null,
+          };
+        }
+      })
+    );
+
+    setProducts(productDetails);
+  };
+
+  // Calculate the total of all the products that are on the cart (including the quantity of how many products are of the same ID)
+
+  const calculateTotal = () => {
+    return products
+      .reduce((total, product) => {
+        if (product.details) {
+          const productPrice = parseFloat(product.details.product_price) || 0;
+          const productQuantity = parseInt(product.id.quantity) || 0;
+          return total + productPrice * productQuantity;
+        }
+        return total;
+      }, 0)
+      .toFixed(2); // Redondear a dos decimales
+  };
+
+  useEffect(() => {
+    displayCartItems();
+  }, []);
+
+  return (
+    <Sheet>
+      <div className="gap-2 items-center relative">
+        <SheetTrigger
+          className="flex gap-2 border p-4 rounded-full items-center relative "
+          onClick={() => displayCartItems()}
+        >
+          <ShoppingCart />
+        </SheetTrigger>
+        <SheetContent className="flex flex-col  gap-5 overflow-y-auto ">
+          {products.map((product, index) => (
+            <CartProductCard index={index} product={product}/>
+          ))}
+          <Button className="fixed bottom-3">Checkout</Button>
+          <p className="text-lg font-bold">Total: ${calculateTotal()}</p>
+        </SheetContent>
+        <div className="rounded-full w-5 h-5 bg-red-500 flex justify-center items-center absolute -translate-y-4 right-0 text-white text-xs">
+          {products.length}
+        </div>
+      </div>
+    </Sheet>
+
+  );
+};
+
+export default CartDropdown;

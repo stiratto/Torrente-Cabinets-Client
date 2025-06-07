@@ -11,6 +11,7 @@ export const adminApi = {
     return response.data;
   },
 
+
   getDealerRequests: async () => {
     const response = await axiosInstance.get('/admin/dealer/dealerRequests');
     return response.data;
@@ -21,7 +22,7 @@ export const adminApi = {
     return response.data;
   },
 
- filterUsersByRole: async (role: string) => {
+  filterUsersByRole: async (role: string) => {
     const response = await axiosInstance.get(`/admin/user/filterUsersByRole/${role}`);
     return response.data;
   },

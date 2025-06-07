@@ -4,7 +4,6 @@ import RegisteredUsers from "@/components/AdminPage/RegisteredUsers";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import PageNotFound from "@/components/PageNotFound";
-import ProductPage from "@/components/Products/ProductPage";
 import About from "@/pages/About";
 import AddProduct from "@/pages/AddProduct";
 import AdminHome from "@/pages/AdminHome";
@@ -19,6 +18,7 @@ import PrivateRoute from "@/pages/private-routes/PrivateRoute";
 import Shop from "@/pages/Shop";
 import { Contact } from "@/pages/Contact";
 import { createBrowserRouter, Outlet, ScrollRestoration } from "react-router-dom";
+import { Product } from "@/components/Products/Product";
 
 
 export const router = createBrowserRouter([
@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
         },
         {
           path: "/torrentekcb/product/:id",
-          element: <ProductPage />
+          element: <Product/>
         },
         {
           path: "/torrentekcb/register",

@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     // Handle specific error cases here
-    if (error.response?.status === 401) {
+    if (error.response?.status === 403) {
       // Handle unauthorized access
       localStorage.removeItem('token');
       window.location.href = '/torrentekcb/login';

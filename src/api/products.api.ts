@@ -1,13 +1,6 @@
+import { IProduct } from '@/lib/interfaces/Product.Interface';
 import axiosInstance from './axios.config';
 
-interface Product {
-  id?: number;
-  product_name: string;
-  product_description: string;
-  product_price: number;
-  product_quantity: number;
-  product_image?: File;
-}
 
 export const productsApi = {
   getProducts: async () => {
@@ -15,18 +8,17 @@ export const productsApi = {
     return response.data;
   },
 
-  getProductDetails: async (id: number) => {
-    const response = await axiosInstance.get(`/getProductDetails/${id}`);
+  getProductDetails: async (id: number): Promise<IProduct> => {
+    const response = await axiosInstance.get(`/product/getProductDetails/${id}`);
     return response.data;
   },
 
   getCartProducts: async (id: number) => {
-    const response = await axiosInstance.get(`/getCartProducts/${id}`);
+    const response = await axiosInstance.get(`/product/getCartProducts/${id}`);
     return response.data;
   },
 
   createProduct: async (productData: FormData) => {
-  
     const response = await axiosInstance.post('/admin/product/createProduct', productData, {
       headers: {
         'Content-Type': 'multipart/form-data',
