@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { productsApi } from "@/api";
 import { addToCart } from "@/lib/utils";
+import { useCartContext } from "@/context/cartContext";
 
 const Shop = () => {
   const [products, setProducts] = useState([
@@ -17,6 +18,8 @@ const Shop = () => {
       imageUrl: "",
     },
   ]);
+
+  const {cart, setCart} = useCartContext()
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -92,7 +95,7 @@ const Shop = () => {
                   className="text-white bg-red-500 hover:bg-red-800
                   focus:ring-4 focus:outline-none focus:ring-blue-300
                   font-medium rounded-lg text-sm px-5 py-2.5 "
-                  onClick={() => addToCart(product.id)}
+                  onClick={() => addToCart(setCart, cart, product.id)}
                 >
                   Add to cart
                 </button>

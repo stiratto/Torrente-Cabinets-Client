@@ -6,14 +6,12 @@ import { Button } from "../ui/button"
 import { Check, ShoppingCart, X } from "lucide-react"
 import { Separator } from "../ui/separator"
 import { addToCart } from "@/lib/utils"
-import { useToast } from "../ui/use-toast"
 import { useCartContext } from "@/context/cartContext"
 
 export const Product = () => {
   const [product, setProduct] = useState<IProduct>()
   const { cart, setCart } = useCartContext()
 
-  const { toast } = useToast()
 
   const navigate = useNavigate()
 

@@ -1,5 +1,4 @@
 // CartDropdown.js
-import { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import {
   Sheet,
@@ -11,11 +10,11 @@ import { CartProductCard } from "./CartProductCard";
 import { useCartContext } from "@/context/cartContext";
 
 const CartDropdown = () => {
-  const {cart, setCart} = useCartContext()
+  const { cart } = useCartContext()
 
 
   const calculateTotal = () => {
-    return cart 
+    return cart
       .reduce((total, product) => {
         if (product) {
           const productPrice = parseFloat(product.product_price.toString()) || 0;
@@ -38,7 +37,7 @@ const CartDropdown = () => {
         </SheetTrigger>
         <SheetContent className="flex flex-col  gap-5 overflow-y-auto ">
           {cart?.map((product, index) => (
-            <CartProductCard index={index} product={product}/>
+            <CartProductCard index={index} product={product} />
           ))}
           <Button className="fixed bottom-3">Checkout</Button>
           <p className="text-lg font-bold">Total: ${calculateTotal()}</p>

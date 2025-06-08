@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import { authApi } from "@/api";
 
 const Register = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState({
     name: "",
     password: "",

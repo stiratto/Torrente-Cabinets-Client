@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const addToCart = async (setCart, cart: CartProduct[], id: number) => {
+export const addToCart = async (setCart: any, cart: CartProduct[], id: number) => {
   try {
     const productDetails = await productsApi.getProductDetails(id);
 

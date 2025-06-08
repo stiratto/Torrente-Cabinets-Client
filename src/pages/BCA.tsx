@@ -17,7 +17,6 @@ import { dealerApi } from "@/api";
 
 const BCA = () => {
 
-  const apiUrl = import.meta.env.VITE_API_URL;
   const {
     register,
     handleSubmit,
