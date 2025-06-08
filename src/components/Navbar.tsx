@@ -16,13 +16,14 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import CartDropdown from "./Products/CartDropdown";
 import Dropdown from "./Dropdown";
 import MobileDropdown from "./MobileDropdown";
+import { useUserContext } from "@/context/userContext";
 
 export default function Navbar() {
+  const {user} = useUserContext()
   const menus = [
     {
       title: "Home",
@@ -50,29 +51,8 @@ export default function Navbar() {
       icon: <ShoppingCart size={15} />,
     },
   ];
-
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    role: "",
-  });
-
-  const token = localStorage.getItem("token");
-
   // Decodificar el token y acceder a la propiedad 'name'
   // Decodificar el token y acceder a la propiedad 'name'
-  useEffect(() => {
-    const parseJwt = (token: any) => {
-      try {
-        return JSON.parse(atob(token.split(".")[1]));
-      } catch (e) {
-        return null;
-      }
-    };
-
-    const user = parseJwt(token);
-    setUserInfo(user);
-  }, []);
-
   return (
     <nav className="sticky top-0 z-50   bg-white w-full border-b md:border-0 shadow-lg xl:px-32">
       <div className="flex  " aria-label="primary menu">
@@ -122,7 +102,7 @@ export default function Navbar() {
                   {/* If user role is dealer, dont show the become a dealer button */}
                   <Dropdown />
                 </div>
-                {userInfo?.role === "DEALER" ? (
+                {user?.role === "DEALER" ? (
                   ""
                 ) : (
                   // If the user is not a dealer, show the button
@@ -199,7 +179,7 @@ export default function Navbar() {
               <div className="">
                 <div className="flex flex-col items-start gap-4">
                   {/* If user role is dealer, then dont show the become a dealer button, else, show the button */}
-                  {userInfo?.role === "DEALER" ? (
+                  {user?.role === "DEALER" ? (
                     ""
                   ) : (
                     <SheetHeader>
@@ -248,7 +228,7 @@ export default function Navbar() {
                     </SheetHeader>
                   )}
 
-                  {/* If user is logged (userInfo is true), then show the Account dropdown menu, else, show the auth dropdown menu */}
+                  {/* If user is logged (user is true), then show the Account dropdown menu, else, show the auth dropdown menu */}
                 </div>
               </div>
             </SheetContent>

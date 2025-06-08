@@ -7,6 +7,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const extractUserStats = (token: string) => {
+    try {
+      const {name, role} = JSON.parse(atob(token.split(".")[1]));
+      return {name, role}
+      
+    } catch (e: any) {
+      throw new Error(e)
+    }
+}
+
 export const addToCart = async (setCart: any, cart: CartProduct[], id: number) => {
   try {
     const productDetails = await productsApi.getProductDetails(id);

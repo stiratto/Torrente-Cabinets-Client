@@ -7,7 +7,6 @@ import {
   User2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,35 +15,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useUserContext } from "@/context/userContext";
 
 const MobileDropdown = () => {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    role: "",
-  });
+  const {user} = useUserContext()
+  
 
   const logOut = () => {
     localStorage.clear();
     window.location.reload();
   };
 
-  const token = localStorage.getItem("token");
-  useEffect(() => {
-    const parseJwt = (token: any) => {
-      try {
-        return JSON.parse(atob(token.split(".")[1]));
-      } catch (e) {
-        return null;
-      }
-    };
-
-    const user = parseJwt(token);
-    setUserInfo(user);
-  }, []);
-  return (
+   return (
     <div className="bg-white">
       <DropdownMenu>
-        {userInfo ? (
+        {user ? (
           <SheetHeader>
             <DropdownMenuTrigger className=" flex justify-center group items-center font-medium gap-1">
               <User2 className="group-hover:-translate-y-1 duration-200" />
@@ -67,15 +52,15 @@ const MobileDropdown = () => {
 
           <DropdownMenuSeparator />
           {/* If user info is true, greet the user with his name and role. */}
-          {userInfo && (
+          {user && (
             <DropdownMenuItem>
-              {userInfo && `Hi, ${userInfo.name}, `}
-              {userInfo && `right now you are a ${userInfo.role}`}
+              {user && `Hi, ${user.username}, `}
+              {user && `right now you are a ${user.role}`}
             </DropdownMenuItem>
           )}
 
           {/* If user role is admin, show the admin button to go to dealer requests. */}
-          {userInfo?.role === "ADMIN" && (
+          {user?.role === "ADMIN" && (
             <DropdownMenuItem className="hover:cursor-pointer">
               <SheetHeader>
                 <Link
@@ -90,9 +75,9 @@ const MobileDropdown = () => {
             </DropdownMenuItem>
           )}
 
-          {/* If user is logged in (userInfo is true), show the logout button */}
+          {/* If user is logged in (user is true), show the logout button */}
 
-          {userInfo ? (
+          {user ? (
             <DropdownMenuItem className="hover:cursor-pointer">
               <Link
                 reloadDocument

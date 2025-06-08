@@ -13,8 +13,9 @@ const axiosInstance = axios.create({
 // Request interceptor for adding auth token
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const localStorageToken = localStorage.getItem('user')
+    if (localStorageToken) {
+      const {token} = JSON.parse(localStorageToken)
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -31,7 +32,7 @@ axiosInstance.interceptors.response.use(
     // Handle specific error cases here
     if (error.response?.status === 403) {
       // Handle unauthorized access
-      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       window.location.href = '/torrentekcb/login';
     }
     return Promise.reject(error);

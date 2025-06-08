@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { productsApi } from "@/api";
 import { addToCart } from "@/lib/utils";
 import { useCartContext } from "@/context/cartContext";
+import { useUserContext } from "@/context/userContext";
 
 const Shop = () => {
   const [products, setProducts] = useState([
@@ -21,12 +22,7 @@ const Shop = () => {
 
   const {cart, setCart} = useCartContext()
 
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    role: "",
-  });
-
-  const token = localStorage.getItem("token");
+  const {user} = useUserContext()
   const [isLoading, setIsLoading] = useState(false);
 
   const getProducts = async () => {
@@ -41,6 +37,7 @@ const Shop = () => {
     }
   };
 
+
   const deleteProduct = async (id: number) => {
     try {
       await productsApi.deleteProduct(id);
@@ -52,19 +49,7 @@ const Shop = () => {
     }
   };
 
-  useEffect(() => {
-    getProducts();
-    const parseJwt = (token: any) => {
-      try {
-        return JSON.parse(atob(token.split(".")[1]));
-      } catch (e) {
-        return null;
-      }
-    };
 
-    const user = parseJwt(token);
-    setUserInfo(user);
-  }, []);
 
   return (
     <div className={products.length > 10 ? "h-auto flex flex-wrap flex-col md:flex-row items-center gap-8 p-8" : "h-screen  flex flex-wrap flex-col md:flex-row items-center gap-8 p-8"}>
@@ -99,7 +84,7 @@ const Shop = () => {
                 >
                   Add to cart
                 </button>
-                {userInfo?.role === "ADMIN" && (
+                {user?.role === "ADMIN" && (
                   <Button onClick={() => deleteProduct(product.id)}>
                     Delete Product
                   </Button>

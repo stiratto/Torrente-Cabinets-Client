@@ -10,45 +10,30 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUserContext } from "@/context/userContext";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { KeyRound, KeySquare, LockKeyhole, LogOut, User2 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { NavLink as Link } from "react-router-dom";
 
 const Dropdown = () => {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    role: "",
-  });
+  const {user} = useUserContext()
 
   const logOut = () => {
     localStorage.clear();
     window.location.reload();
   };
 
-  const token = localStorage.getItem("token");
-  useEffect(() => {
-    const parseJwt = (token: any) => {
-      try {
-        return JSON.parse(atob(token.split(".")[1]));
-      } catch (e) {
-        return null;
-      }
-    };
 
-    const user = parseJwt(token);
-    setUserInfo(user);
-  }, []);
   return (
     <DropdownMenu>
-      {/* If user logged in (userInfo is true), show the Account dropdown menu */}
-      {userInfo ? (
+      {/* If user logged in (user is true), show the Account dropdown menu */}
+      {user ? (
         <DropdownMenuTrigger className=" flex justify-center group items-center font-medium gap-2">
           <img
             src="https://torrente15.files.wordpress.com/2023/11/descarga-1.png"
             className="w-8 h-8 rounded-full p-0 m-0 !focusp:outline-none"
           ></img>
-          {userInfo.name}
+          {user.username}
         </DropdownMenuTrigger>
       ) : (
         // Else, show the auth dropdown menu
@@ -60,7 +45,7 @@ const Dropdown = () => {
 
       <DropdownMenuContent className="w-full focus:">
         {/* If user is logged in show the my account text label */}
-        {userInfo ? (
+        {user ? (
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
         ) : (
           // Else, show the authorization text label
@@ -68,17 +53,17 @@ const Dropdown = () => {
         )}
         <DropdownMenuSeparator />
         {/* If user is logged in, greet the user with his name and role */}
-        {userInfo && (
+        {user && (
           <DropdownMenuItem className="text-md gap-1">
-            {userInfo && (
+            {user && (
               <p className="">
-                Hi, {userInfo.name}, you are an {userInfo.role}
+                Hi, {user.username}, you are an {user.role}
               </p>
             )}
           </DropdownMenuItem>
         )}
 
-        {userInfo?.role === "ADMIN" ? (
+        {user?.role === "ADMIN" ? (
           // If user role is admin, show the admin private button
           <Link reloadDocument to={"/torrentekcb/admin"}>
             <DropdownMenuGroup className="hover:cursor-pointer">
@@ -122,7 +107,7 @@ const Dropdown = () => {
           ""
         )}
 
-        {userInfo ? (
+        {user ? (
           // If user is logged in, show the logout button
           <Link reloadDocument to="/" onClick={logOut}>
             <DropdownMenuItem className="hover:cursor-pointer flex items-center gap-2 ">

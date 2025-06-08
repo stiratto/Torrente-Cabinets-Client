@@ -9,17 +9,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { authApi } from "@/api";
+import { useUserContext } from "@/context/userContext";
+import { extractUserStats } from "@/lib/utils";
 
 const Login = () => {
-  const [user, setUser] = useState({
+  const {user, setUser} = useUserContext()
+  const [userField, setUserField] = useState({
     name: "",
     password: "",
   });
+
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -33,8 +36,8 @@ const Login = () => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    setUserField({
+      ...userField,
       [name]: value,
     });
     setValue(name, value);
@@ -43,16 +46,26 @@ const Login = () => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      const token = await authApi.login(user);
-      localStorage.setItem("token", token);
+      const token = await authApi.login(userField);
+      const {name, role} = extractUserStats(token)
+
+      setUser({
+        token,
+        username: name,
+        role
+      })
+
+
       navigate("/");
-      location.reload();
+      // location.reload();
+      console.log(user)
     } catch (error) {
       setIsLoading(false);
+      console.log(error)
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong",
-        description: "We didn't found a valid user with those credentials :(",
+        description: "We didn't found a valid userField with those credentials :(",
       });
     }
   };
@@ -69,7 +82,7 @@ const Login = () => {
             placeholder="Name"
             name="name"
             register={register}
-            value={user.name}
+            value={userField.name}
             onChange={handleChange}
             className="p-3 rounded-lg border focus:border-red-500"
           />
@@ -86,7 +99,7 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               name="password"
-              value={user.password}
+              value={userField.password}
               register={register}
               onChange={handleChange}
               className="p-3 rounded-lg  border focus:border-red-500 w-full"
@@ -96,7 +109,7 @@ const Login = () => {
               onClick={() => setShowPassword(!showPassword)}
               className="relative -left-8 w-0"
               type="button"
-              value={user.password}
+              value={userField.password}
             >
               {showPassword ? <EyeIcon /> : <EyeOffIcon />}
             </button>
