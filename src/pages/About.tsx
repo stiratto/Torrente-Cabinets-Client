@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -14,7 +14,7 @@ const About = () => {
             well-equipped to turn your vision of the perfect kitchen into a
             reality.
           </p>
-          <Link reloadDocument to={"/torrentekcb/contact"}>
+          <Link to={"/torrentekcb/contact"}>
             <button className="bg-red-500 text-white font-medium p-4 rounded-full w-52 mx-auto hover:scale-105 active:scale-90 transition-all">
               Request consultation
             </button>

@@ -3,7 +3,7 @@ import { IProduct } from "@/lib/interfaces/Product.Interface"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Button } from "../ui/button"
-import { Check, ShoppingCart, X } from "lucide-react"
+import { Check, Loader2Icon, ShoppingCart, X } from "lucide-react"
 import { Separator } from "../ui/separator"
 import { addToCart } from "@/lib/utils"
 import { useCartContext } from "@/context/cartContext"
@@ -125,8 +125,8 @@ export const Product = () => {
         </div>
       )
       :
-      <div>
-        "asd"
+      <div className="h-screen flex justify-center items-center">
+        <Loader2Icon className="animate-spin duration-300" size={40}/>
       </div>
   )
 }

@@ -1,8 +1,6 @@
 import App from "@/App";
 import DealerRequests from "@/components/AdminPage/DealerRequests";
 import RegisteredUsers from "@/components/AdminPage/RegisteredUsers";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import PageNotFound from "@/components/PageNotFound";
 import About from "@/pages/About";
 import AddProduct from "@/pages/AddProduct";
@@ -17,21 +15,15 @@ import PrivateDealerRoute from "@/pages/private-routes/PrivateDealerRoute";
 import PrivateRoute from "@/pages/private-routes/PrivateRoute";
 import Shop from "@/pages/Shop";
 import { Contact } from "@/pages/Contact";
-import { createBrowserRouter, Outlet, ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { Product } from "@/components/Products/Product";
+import { Layout } from "@/layouts";
 
 
 export const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <>
-          <Navbar />
-          <Outlet    />
-          <ScrollRestoration/>
-          <Footer />
-        </>
-      ),
+      element:  <Layout/>,
       children: [
         {
           path: "/",
@@ -80,9 +72,9 @@ export const router = createBrowserRouter([
         {
           path: "/torrentekcb/becomeadealer",
           element: (
-            <PrivateDealerRoute>
+            <PrivateRoute>
               <BCA />
-            </PrivateDealerRoute>
+            </PrivateRoute>
           )
         },
         {

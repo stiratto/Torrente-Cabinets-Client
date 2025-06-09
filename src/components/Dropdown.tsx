@@ -65,7 +65,7 @@ const Dropdown = () => {
 
         {user?.role === "ADMIN" ? (
           // If user role is admin, show the admin private button
-          <Link reloadDocument to={"/torrentekcb/admin"}>
+          <Link to={"/torrentekcb/admin"}>
             <DropdownMenuGroup className="hover:cursor-pointer">
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger className="flex flex-row items-center gap-2">
@@ -74,13 +74,13 @@ const Dropdown = () => {
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="p-3">
-                    <Link reloadDocument to={"/torrentekcb/admin/dealerRequests"}>
+                    <Link to={"/torrentekcb/admin/dealerRequests"}>
                       <DropdownMenuItem className="hover:cursor-pointer">
                         Dealer Requests
                       </DropdownMenuItem>
                     </Link>
                     <Link
-                      reloadDocument
+                      
                       to={"/torrentekcb/admin/registeredUsers"}
                       className="hover:cursor-pointer"
                     >
@@ -89,7 +89,7 @@ const Dropdown = () => {
                       </DropdownMenuItem>
                     </Link>
                     <Link
-                      reloadDocument
+                      
                       to={"/torrentekcb/admin/shop/addproduct"}
                       className="hover:cursor-pointer"
                     >
@@ -109,7 +109,7 @@ const Dropdown = () => {
 
         {user ? (
           // If user is logged in, show the logout button
-          <Link reloadDocument to="/" onClick={logOut}>
+          <Link to="/" onClick={logOut}>
             <DropdownMenuItem className="hover:cursor-pointer flex items-center gap-2 ">
               <LogOut size={15} />
               Logout

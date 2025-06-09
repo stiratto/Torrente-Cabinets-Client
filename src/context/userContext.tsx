@@ -1,6 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react"
 
 interface User {
+   id: number,
    token: string,
    role: string,
    username: string
@@ -14,10 +15,10 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | null>(null)
 
 
-export const UserProvider = ({children}: {children: ReactNode}) => {
+export const UserProvider = ({ children }: { children: ReactNode }) => {
    const [user, setUser] = useState<User>(() => {
       const storedUser = localStorage.getItem("user");
-      return storedUser ? JSON.parse(storedUser) : {} as User;
+      return storedUser ? JSON.parse(storedUser) : null;
    })
 
    useEffect(() => {
@@ -25,7 +26,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
    }, [user])
 
    return (
-      <UserContext.Provider value={{user, setUser}}>
+      <UserContext.Provider value={{ user, setUser }}>
          {children}
       </UserContext.Provider>
    )
@@ -36,5 +37,5 @@ export const useUserContext = () => {
    if (!context) {
       throw new Error("useUserContext() must be used within a UserContext")
    }
-   return context 
+   return context
 }

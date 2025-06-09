@@ -13,7 +13,7 @@ export const authApi = {
   },
 
   register: async (userData: User) => {
-    const response = await axiosInstance.post('/user/egister', userData);
+    const response = await axiosInstance.post('/user/register', userData);
     return response.data;
   }
 }; 

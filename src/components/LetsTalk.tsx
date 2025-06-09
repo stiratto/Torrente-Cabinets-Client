@@ -1,5 +1,5 @@
 import { ArrowRightToLine } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 
 const LetsTalk = () => {
   return (
@@ -16,7 +16,7 @@ const LetsTalk = () => {
         </div>
       </div>
       <div className="flex gap-4 justify-center ">
-        <Link reloadDocument to={"/torrentekcb/contact"}>
+        <Link to={"/torrentekcb/contact"}>
           <button className="px-8 py-2 bg-red-500 text-white rounded-full duration-200 group flex items-center gap-2 hover:scale-105">
             Send us a message!
             <ArrowRightToLine

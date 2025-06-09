@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Check } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import { authApi } from "@/api";
 
 const Register = () => {
@@ -49,7 +49,7 @@ const Register = () => {
         title: "Your account has been created! You now can login",
         action: (
           <ToastAction altText="Goto schedule to undo">
-            <Link reloadDocument to={"/torrentekcb/login"}>
+            <Link to={"/torrentekcb/login"}>
               Goto login
             </Link>
           </ToastAction>
@@ -209,7 +209,7 @@ const Register = () => {
           <p>
             Already have an account?{" "}
             <Link
-              reloadDocument
+              
               to={"/torrentekcb/login"}
               className="text-yellow-300 underline  underline-offset-2"
             >

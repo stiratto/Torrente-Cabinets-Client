@@ -44,6 +44,7 @@
     "react-dom": "^18.3.1",
     "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.57.0",
+    "react-hot-toast": "^2.5.2",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.30.1",
     "routes": "^2.1.0",

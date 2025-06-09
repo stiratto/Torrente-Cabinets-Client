@@ -47,12 +47,13 @@ const Login = () => {
     try {
       setIsLoading(true);
       const token = await authApi.login(userField);
-      const {name, role} = extractUserStats(token)
+      const {name, role, id} = extractUserStats(token)
 
       setUser({
+        id,
         token,
         username: name,
-        role
+        role,
       })
 
 
@@ -138,7 +139,7 @@ const Login = () => {
           <p>
             Don't have an account?{" "}
             <Link
-              reloadDocument
+              
               to="/torrentekcb/register"
               className="text-yellow-500 underline  underline-offset-2"
             >

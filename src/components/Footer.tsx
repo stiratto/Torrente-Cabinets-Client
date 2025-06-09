@@ -6,7 +6,7 @@ import {
   MapPinned,
   Youtube,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import { Separator } from "./ui/separator";
 
 const Footer = () => {
@@ -15,7 +15,7 @@ const Footer = () => {
       <Separator />
       <div className="py-14 px-14 flex flex-col items-center  gap-8 lg:flex-row">
         <div className="self-center">
-          <Link reloadDocument to={"/"}>
+          <Link to={"/"}>
             <img src="https://i0.wp.com/torrentekitchenandbath.com/wp-content/uploads/2023/07/download-1.png?w=225&ssl=1"></img>
           </Link>
         </div>
@@ -104,8 +104,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex justify-between text-white bg-red-500 p-2 w-full lg:py-8 lg:px-48 text-lg">
-        <p>Politica de privacidad</p>
-        <p>© 2023 TORRENTE K&B CABINETS | Derechos reservados</p>
+        <p>Privacy Policy</p>
+        <p>© 2023 TORRENTE K&B CABINETS | Rights Reserved</p>
       </div>
       <div />
     </footer>

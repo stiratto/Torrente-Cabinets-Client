@@ -9,11 +9,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { format } from "date-fns";
 import { ErrorMessage } from "@hookform/error-message";
 import { ToastAction } from "@/components/ui/toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Loader2Icon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import { BCASchema } from "@/schemas/bca_schema";
 import { dealerApi } from "@/api";
+import { useUserContext } from "@/context/userContext";
 
 const BCA = () => {
 
@@ -27,29 +28,7 @@ const BCA = () => {
     criteriaMode: "all",
   });
 
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    role: "",
-    id: "",
-  });
-
-  const token = localStorage.getItem("token");
-
-  const parseJwt = (token: string) => {
-    try {
-      return JSON.parse(atob(token.split(".")[1]));
-    } catch (e) {
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    if (token) {
-      const user = parseJwt(token);
-      setUserInfo(user);
-    }
-  }, [token]);
-
+  
   const [isLoading, setIsLoading] = useState(false);
 
   const [capVal, setCapVal] = useState(null);
@@ -65,14 +44,15 @@ const BCA = () => {
     company_description: "",
   });
 
+  const {user} = useUserContext()
+
   const onSubmit = async () => {
-    // If token is true (user is logged in) let the user send a dealer request
-    if (token) {
+    if (user) {
       try {
         setIsLoading(true);
         await dealerApi.submitDealerRequest({
           ...dealer,
-          userId: userInfo.id,
+          userId: user.id,
         });
         setIsLoading(false);
         toast({
@@ -100,7 +80,7 @@ const BCA = () => {
         description: "You need to log in before sending a dealer request!",
         action: (
           <ToastAction altText="Go to login">
-            <Link reloadDocument to={"/torrentekcb/login"}>Go to login</Link>
+            <Link to={"/torrentekcb/login"}>Go to login</Link>
           </ToastAction>
         ),
       });
