@@ -1,4 +1,3 @@
-// CartDropdown.js
 import { Frown, ShoppingCart } from "lucide-react";
 import {
   Sheet,
@@ -8,7 +7,6 @@ import {
 import { Button } from "../ui/button";
 import { CartProductCard } from "./CartProductCard";
 import { useCartContext } from "@/context/cartContext";
-import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const CartDropdown = () => {

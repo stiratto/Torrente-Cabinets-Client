@@ -46,7 +46,7 @@ const Shop = () => {
       {isLoading && <Loader2Icon className="animate-spin mx-auto" />}
       {!isLoading &&
         products && products.map((product) => (
-          <ProductCard product={product} getProducts={getProducts} deleteProduct={deleteProduct}/>
+          <ProductCard product={product} deleteProduct={deleteProduct}/>
         ))}
     </div>
   );

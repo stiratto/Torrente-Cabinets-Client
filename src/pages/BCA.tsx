@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { format } from "date-fns";
 import { ErrorMessage } from "@hookform/error-message";
 import { ToastAction } from "@/components/ui/toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { NavLink as Link } from "react-router-dom";
 import { BCASchema } from "@/schemas/bca_schema";
@@ -26,12 +26,6 @@ const BCA = () => {
     reValidateMode: "onChange",
     resolver: yupResolver(BCASchema),
     criteriaMode: "all",
-  });
-
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    role: "",
-    id: "",
   });
 
   

@@ -50,10 +50,10 @@ const Login = () => {
       const {name, role, id} = extractUserStats(token)
 
       setUser({
+        id,
         token,
         username: name,
         role,
-        id
       })
 
 

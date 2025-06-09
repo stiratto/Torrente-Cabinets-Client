@@ -2,6 +2,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 
 interface User {
    id: number,
+   token: string,
    role: string,
    username: string
 }

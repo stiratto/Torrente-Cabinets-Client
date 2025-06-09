@@ -1,8 +1,6 @@
 import { CartProduct } from "@/lib/interfaces/Product.Interface"
-import { SheetHeader } from "../ui/sheet"
 import { Minus, Plus, X } from "lucide-react"
 import { useCartContext } from "@/context/cartContext"
-import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
 
 

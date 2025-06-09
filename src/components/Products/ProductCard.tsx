@@ -5,10 +5,10 @@ import { addToCart } from "@/lib/utils"
 import { NavLink as Link } from "react-router-dom"
 import { Button } from "../ui/button"
 
-export const ProductCard = ({product, deleteProduct, getProducts}: 
+export const ProductCard = ({product, deleteProduct }: 
    {product: IProduct, 
-   deleteProduct: (id: number) => void,
-   getProducts: () => void }
+   deleteProduct: (id: number) => void
+   }
    ) => {
 
    const {cart, setCart } = useCartContext()

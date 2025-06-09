@@ -16,7 +16,6 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "./ui/button";
 import CartDropdown from "./Products/CartDropdown";
 import Dropdown from "./Dropdown";
 import MobileDropdown from "./MobileDropdown";
