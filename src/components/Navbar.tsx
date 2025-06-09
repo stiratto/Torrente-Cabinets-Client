@@ -21,9 +21,10 @@ import CartDropdown from "./Products/CartDropdown";
 import Dropdown from "./Dropdown";
 import MobileDropdown from "./MobileDropdown";
 import { useUserContext } from "@/context/userContext";
+import { BCAButton } from "./BCAButton";
 
 export default function Navbar() {
-  const {user} = useUserContext()
+  const { user } = useUserContext()
   const menus = [
     {
       title: "Home",
@@ -87,7 +88,7 @@ export default function Navbar() {
                     key={idx}
                   >
                     {item.icon}
-                    <Link  to={item.path}>
+                    <Link to={item.path}>
                       <p className="text-md  tracking-wide font-medium uppercase">
                         {item.title}
                       </p>
@@ -107,48 +108,7 @@ export default function Navbar() {
                 ) : (
                   // If the user is not a dealer, show the button
                   <li className="list-none">
-                    <Link
-                      
-                      to="/torrentekcb/becomeadealer"
-                      className="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold shadow text-red-500 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group"
-                    >
-                      <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-red-500 group-hover:h-full"></span>
-                      <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-                        <svg
-                          className="w-5 h-5 text-yellow-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          ></path>
-                        </svg>
-                      </span>
-                      <span className="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
-                        <svg
-                          className="w-5 h-5 text-yellow-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          ></path>
-                        </svg>
-                      </span>
-                      <Button className="relative w-full text-left text-red-500 transition-colors h-auto duration-200 ease-in-out bg-transparent group-hover:text-white hover:bg-transparent font-medium">
-                        Become a dealer
-                      </Button>
-                    </Link>
+                    <BCAButton />
                   </li>
                 )}
                 <CartDropdown />
@@ -157,17 +117,13 @@ export default function Navbar() {
             {/* Mobile part */}
             {/* Mobile part */}
             {/* Mobile part */}
-            {/* Mobile part */}
-            {/* Mobile part */}
-            {/* Mobile part */}
-            {/* @ts-ignore */}
             <SheetContent className="flex flex-col items-start gap-5 font-medium overflow-y-auto">
               {menus.map((item, idx) => (
                 <SheetHeader
                   key={idx}
                   className=" active:text-yellow-500 duration-200"
                 >
-                  <Link  to={item.path} className="flex items-center gap-3">
+                  <Link to={item.path} className="flex items-center gap-3">
                     {item.icon}
                     {item.title}
                   </Link>
@@ -183,48 +139,7 @@ export default function Navbar() {
                     ""
                   ) : (
                     <SheetHeader>
-                      <Link
-                        
-                        to="/torrentekcb/becomeadealer"
-                        className="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold shadow text-red-500 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group"
-                      >
-                        <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-red-500 group-hover:h-full"></span>
-                        <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-                          <svg
-                            className="w-5 h-5 text-yellow-500"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            ></path>
-                          </svg>
-                        </span>
-                        <span className="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
-                          <svg
-                            className="w-5 h-5 text-yellow-300"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            ></path>
-                          </svg>
-                        </span>
-                        <Button className="relative w-full text-left text-red-500 transition-colors h-auto duration-200 ease-in-out bg-transparent group-hover:text-white hover:bg-transparent font-medium">
-                          Become a dealer
-                        </Button>
-                      </Link>
+                      <BCAButton />
                     </SheetHeader>
                   )}
 

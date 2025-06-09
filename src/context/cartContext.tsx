@@ -1,9 +1,9 @@
 import { CartProduct } from "@/lib/interfaces/Product.Interface";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface CartContextType {
    cart: CartProduct[],
-   setCart: React.Dispatch<React.SetStateAction<CartProduct[]>>
+   setCart: React.Dispatch<React.SetStateAction<CartProduct[] | []>>
 }
 
 const CartContext= createContext<CartContextType | null>(null)
@@ -20,7 +20,15 @@ export const useCartContext = () => {
 
 
 function CartProvider  ({children}: {children: React.ReactNode}) {
-   const [cart, setCart] = useState<CartProduct[]>([])
+   const [cart, setCart] = useState<CartProduct[] | []>(() => {
+      const cart = JSON.parse(localStorage.getItem("cart") as string)
+      return (cart && cart.length > 0) ? cart : []
+   })
+
+   useEffect(() => {
+      localStorage.setItem("cart", JSON.stringify(cart))
+   }, [cart])
+
    return (
       <CartContext.Provider value={{cart, setCart}}>
          {children}

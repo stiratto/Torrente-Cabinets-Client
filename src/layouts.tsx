@@ -1,14 +1,17 @@
-import { ScrollRestoration } from "react-router-dom";
-import { Toaster } from "./components/ui/toaster";
+import { Toaster } from "react-hot-toast";
+import { Outlet, ScrollRestoration } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = () => {
   return (
-    <div>
-      <h1>Layout</h1>
-      <Toaster/>
-      {children}
-      <ScrollRestoration/>
+    <>
+      <Navbar />
+      <Outlet    />
+      <Toaster />
   
-    </div>
+      <ScrollRestoration/>
+      <Footer />
+    </>
   );
 };

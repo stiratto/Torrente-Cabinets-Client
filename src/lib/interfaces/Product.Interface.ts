@@ -1,5 +1,4 @@
 export interface CartProduct extends IProduct {
-  image_url: string;
   product_quantity: number;
 }
 

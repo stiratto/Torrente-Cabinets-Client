@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 const GotoHomeBtn = () => {
   return (
-    <Link reloadDocument to={"/torrentekcb/admin"} className="self-start mb-8 mx-3">
+    <Link to={"/torrentekcb/admin"} className="self-start mb-8 mx-3">
       <Button>Goto home</Button>
     </Link>
   );

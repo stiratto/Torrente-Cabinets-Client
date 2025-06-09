@@ -17,21 +17,15 @@ import PrivateDealerRoute from "@/pages/private-routes/PrivateDealerRoute";
 import PrivateRoute from "@/pages/private-routes/PrivateRoute";
 import Shop from "@/pages/Shop";
 import { Contact } from "@/pages/Contact";
-import { createBrowserRouter, Outlet, ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { Product } from "@/components/Products/Product";
+import { Layout } from "@/layouts";
 
 
 export const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <>
-          <Navbar />
-          <Outlet    />
-          <ScrollRestoration/>
-          <Footer />
-        </>
-      ),
+      element:  <Layout/>,
       children: [
         {
           path: "/",
@@ -80,9 +74,9 @@ export const router = createBrowserRouter([
         {
           path: "/torrentekcb/becomeadealer",
           element: (
-            <PrivateDealerRoute>
+            <PrivateRoute>
               <BCA />
-            </PrivateDealerRoute>
+            </PrivateRoute>
           )
         },
         {

@@ -6,7 +6,7 @@ import {
   PlusSquare,
   User2,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,7 +64,7 @@ const MobileDropdown = () => {
             <DropdownMenuItem className="hover:cursor-pointer">
               <SheetHeader>
                 <Link
-                  reloadDocument
+                  
                   to={"/torrentekcb/admin"}
                   className="flex items-center gap-2"
                 >
@@ -80,7 +80,7 @@ const MobileDropdown = () => {
           {user ? (
             <DropdownMenuItem className="hover:cursor-pointer">
               <Link
-                reloadDocument
+                
                 to="/"
                 onClick={logOut}
                 className="flex items-center gap-2 "
@@ -94,7 +94,7 @@ const MobileDropdown = () => {
             <div className="flex flex-col">
               <DropdownMenuItem className="hover:cursor-pointer">
                 <Link
-                  reloadDocument
+                  
                   to={"/torrentekcb/register"}
                   className="flex items-center gap-2"
                 >
@@ -104,7 +104,7 @@ const MobileDropdown = () => {
               </DropdownMenuItem>
               <DropdownMenuItem className="hover:cursor-pointer">
                 <Link
-                  reloadDocument
+                  
                   to={"/torrentekcb/login"}
                   className="flex items-center gap-2"
                 >

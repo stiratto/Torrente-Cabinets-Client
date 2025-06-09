@@ -4,7 +4,7 @@ import { useUserContext } from "@/context/userContext";
 const PrivateAdminRoute = ({ children }: any) => {
   const {user} = useUserContext()
 
-  return user.role === "ADMIN" ? children : <Navigate to={"/"} />;
+  return user && user.role === "ADMIN" ? children : <Navigate to={"/"} />;
 };
 
 export default PrivateAdminRoute;
