@@ -41,8 +41,8 @@ const Shop = () => {
   return (
     <div 
       className={products && products.length > 10 ? 
-        "h-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center gap-8 p-8"
-        : "h-screen  flex flex-wrap flex-col md:flex-row items-center gap-8 p-8"}>
+        "h-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8 p-8"
+        : "h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-8 p-8"}>
       {isLoading && <Loader2Icon className="animate-spin mx-auto" />}
       {!isLoading &&
         products && products.map((product) => (
