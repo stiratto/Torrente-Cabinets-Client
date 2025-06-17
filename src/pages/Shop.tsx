@@ -22,16 +22,16 @@ const Shop = () => {
     }
   };
 
-
-  const deleteProduct = async (id: number) => {
-    try {
-      await productsApi.deleteProduct(id);
-      // Refresh products list
-      getProducts();
-    } catch (err) {
-      console.log("There was an error", err);
-    }
-  };
+  //
+  // const deleteProduct = async (id: number) => {
+  //   try {
+  //     await productsApi.deleteProduct(id);
+  //     // Refresh products list
+  //     getProducts();
+  //   } catch (err) {
+  //     console.log("There was an error", err);
+  //   }
+  // };
 
   useEffect(() => {
     getProducts()
@@ -90,7 +90,7 @@ const Shop = () => {
         {isLoading && <Loader2Icon className="animate-spin mx-auto" />}
         {!isLoading &&
           products && products.map((product) => (
-            <ProductCard product={product} deleteProduct={deleteProduct} key={product.id} />
+            <ProductCard product={product} key={product.id} />
           ))}
       </div>
     </div>
