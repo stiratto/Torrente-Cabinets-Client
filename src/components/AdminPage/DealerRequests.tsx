@@ -39,9 +39,9 @@ const DealerRequests = () => {
     }
   };
 
-  const acceptRequest = async (userId: string, requestId: string) => {
+  const acceptRequest = async (id: string) => {
     try {
-      await adminApi.acceptRequest(userId, requestId);
+      await adminApi.acceptRequest(id);
       // Refresh the requests list
       getDealerRequests();
     } catch (error) {
@@ -127,7 +127,7 @@ const DealerRequests = () => {
                   <div className="flex justify-between gap-5 mt-8 text-white font-medium">
                     <button
                       className={`${cardStyles.button} ${cardStyles.acceptButton}`}
-                      onClick={() => acceptRequest(request.userId, request.id)}
+                      onClick={() => acceptRequest(request.id)}
                     >
                       Accept
                     </button>
