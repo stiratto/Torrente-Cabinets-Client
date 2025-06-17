@@ -100,7 +100,7 @@ const BCA = () => {
         <div className="absolute inset-0  bg-[url('https://images.unsplash.com/photo-1631048500395-64cf901e9e10?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]  bg-cover bg-no-repeat"></div>
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 text-white max-w-2xl mx-auto flex flex-col gap-4">
-          <h1 className="text-8xl font-serif leading-tight tracking-[-2px]">
+          <h1 className="text-8xl leading-tight tracking-[-2px]">
             Become a dealer
           </h1>
           <p className="bg-black bg-opacity-50 p-3 text-start md:text-center rounded-xl ">
