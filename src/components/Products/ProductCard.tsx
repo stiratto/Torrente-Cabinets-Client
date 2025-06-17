@@ -1,18 +1,15 @@
 import { useCartContext } from "@/context/cartContext"
-import { useUserContext } from "@/context/userContext"
 import { IProduct } from "@/lib/interfaces/Product.Interface"
 import { addToCart } from "@/lib/utils"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../ui/button"
 import { Check } from "lucide-react"
 
-export const ProductCard = ({ product, deleteProduct }: {
+export const ProductCard = ({ product }: {
   product: IProduct,
-  deleteProduct: (id: number) => void
 }) => {
 
   const { cart, setCart } = useCartContext()
-  const { user } = useUserContext()
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -52,19 +49,7 @@ export const ProductCard = ({ product, deleteProduct }: {
             <p className="flex items-center gap-2"><Check size={20} className="bg-[#fa1925] rounded-full p-1" /> In Stock & Ready to Ship</p>
             <p className="flex items-center gap-2"><Check size={20} className="bg-[#FA1925] rounded-full p-1" /> Fast Shipping from U.S. Warehouse</p>
           </div>
-          {/*
-         {user?.role === "ADMIN" && (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation()
-                deleteProduct(product.id as number)
-              }}
-              className="w-min"
-            >
-              Delete Product
-            </Button>
-          )}
-           */}
+
         </div>
       </div>
     </div>
