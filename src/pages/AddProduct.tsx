@@ -1,7 +1,6 @@
 import GotoHomeBtn from "@/components/AdminPage/GotoHomeBtn";
-import {zodResolver} from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
@@ -19,7 +18,7 @@ const AddProduct = () => {
   const form = useForm<TAddProductSchema>({
     resolver: zodResolver(AddProductSchema)
   })
- 
+
   const removeImage = () => {
     form.setValue("product_image", null as unknown as File)
   }
@@ -34,8 +33,8 @@ const AddProduct = () => {
     formData.append("product_description", data.product_description);
     formData.append("product_stock", data.product_stock.toString());
     data.product_image && formData.append("product_image", data.product_image);
-    
-   
+
+
     await productsApi.createProduct(formData)
       .then(() => {
         toast({
@@ -72,60 +71,60 @@ const AddProduct = () => {
             <Toaster />
 
             <div className="flex flex-col gap-4 w-full">
-              
-              <FormField name="product_name" render={({field}) => (
+
+              <FormField name="product_name" render={({ field }) => (
                 <FormItem className=" flex flex-col items-start max-w-xl">
                   <FormLabel>Product name</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter product name" {...field} />
-                  </FormControl> 
+                  </FormControl>
                 </FormItem>
-              )}/> 
+              )} />
 
-              <FormField name="product_price" render={({field}) => (
+              <FormField name="product_price" render={({ field }) => (
                 <FormItem className="flex flex-col items-start max-w-xl">
                   <FormLabel>Product price</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="Enter product price" {...field} />
-                  </FormControl> 
+                  </FormControl>
                 </FormItem>
-              )}/>
+              )} />
 
-              <FormField  name="product_stock" render={({field}) => (
+              <FormField name="product_stock" render={({ field }) => (
                 <FormItem className="flex flex-col items-start max-w-xl">
                   <FormLabel >Product stock</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Enter product stock" {...field}/>
-                  </FormControl> 
+                    <Input type="number" placeholder="Enter product stock" {...field} />
+                  </FormControl>
                 </FormItem>
-              )}/>
+              )} />
 
 
-              
-              <FormField  name="product_description" render={({field}) => (
+
+              <FormField name="product_description" render={({ field }) => (
                 <FormItem className=" flex flex-col items-start max-w-xl">
                   <FormLabel >Product description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter product description"  rows={10} {...field}/>
-                  </FormControl> 
+                    <Textarea placeholder="Enter product description" rows={10} {...field} />
+                  </FormControl>
                 </FormItem>
-              )}/>
+              )} />
 
 
               <div className="relative w-max">
                 {form.watch("product_image") && (
                   <div className="flex">
-                    <img src={URL.createObjectURL(form.getValues("product_image"))} className="w-48 h-48 rounded-xl"/>
+                    <img src={URL.createObjectURL(form.getValues("product_image"))} className="w-48 h-48 rounded-xl" />
                     <button className="bg-red-500 p-1 rounded-full absolute -top-2 -right-2 text-white hover:bg-red-600" type="button" onClick={removeImage}>
-                      <X size={15}/>
+                      <X size={15} />
 
                     </button>
                   </div>
-                )} 
+                )}
               </div>
-              <FormField  name="product_image" render={({field}) => (
+              <FormField name="product_image" render={() => (
                 <FormItem className="flex flex-col items-start w-full">
-                  <FormMessage/>
+                  <FormMessage />
                   <FormLabel className="w-full">
                     <div className="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#e6e4db] px-6 py-14">
                       <div className="flex max-w-[480px] flex-col items-center gap-2">
@@ -140,18 +139,18 @@ const AddProduct = () => {
                       if (file) {
                         form.setValue("product_image", file)
                       }
-                    }}/>
-                  </FormControl> 
+                    }} />
+                  </FormControl>
                 </FormItem>
-              )}/>
-             
-              
+              )} />
 
-           
-            
+
+
+
+
             </div>
             <Button type="submit" className="rounded-full bg-[#ffdd33] text-black font-bold self-end">
-              Add product 
+              Add product
             </Button>
 
           </form>
