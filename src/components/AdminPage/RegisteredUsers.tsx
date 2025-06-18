@@ -21,7 +21,6 @@ import { Button } from "../ui/button";
 import GotoHomeBtn from "./GotoHomeBtn";
 import { adminApi } from "@/api";
 
-// TODO: COMMENT AND ORGANIZE EVERYTHING ON THIS FILE
 const RegisteredUsers = () => {
   const [registeredUsers, setRegisteredUsers] = useState([
     {
@@ -40,8 +39,6 @@ const RegisteredUsers = () => {
     }
   };
 
-  // TODO: FILTER USERS BY ROLE
-
   const getRegisteredUsersByRole = async (role: string) => {
     try {
       const data = await adminApi.filterUsersByRole(role);
@@ -53,12 +50,11 @@ const RegisteredUsers = () => {
 
 
   useEffect(() => {
-    // Llama a la función getRegisteredUsers cuando sea necesario, por ejemplo, cuando el componente se monte.
     getRegisteredUsers();
   }, []);
 
   return (
-    <Table className="flex flex-col gap-8 mx-auto pt-8  ">
+    <Table className="flex flex-col gap-8 mx-auto pt-8  max-w-3xl">
       <GotoHomeBtn />
       <DropdownMenu>
         <DropdownMenuTrigger className="focus-visible:outline-none rounded-lg mx-3">
@@ -89,13 +85,13 @@ const RegisteredUsers = () => {
         </TableRow>
       </TableHeader>
       {registeredUsers.map((registeredUser) => (
-        <div className="flex flex-col items-center text-start px-8">
-          <TableBody className="w-full border-x border-y">
+        <div className="flex flex-col items-center text-start">
+          <TableBody className="w-full">
             <TableRow className="flex ">
-              <TableCell className="font-medium border-r">
+              <TableCell className="font-medium ">
                 {registeredUser.id}
               </TableCell>
-              <TableCell className="w-full border-r">
+              <TableCell className="w-full">
                 Name: {registeredUser.name}
               </TableCell>
               <TableCell className="w-full">

@@ -1,9 +1,9 @@
+import { useUserContext } from "@/context/userContext";
 import { Navigate } from "react-router-dom";
 
-const user = localStorage.getItem("token");
-
 const PrivateRoute = ({ children }: any) => {
-  return user ? <Navigate to="/" /> : children;
+  const {user} = useUserContext()
+  return user && user.role !== 'VISITOR' ? <Navigate to="/" /> : children;
 };
 
 export default PrivateRoute;

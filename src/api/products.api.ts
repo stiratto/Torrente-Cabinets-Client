@@ -1,7 +1,6 @@
 import { IProduct } from '@/lib/interfaces/Product.Interface';
 import axiosInstance from './axios.config';
 
-
 export const productsApi = {
   getProducts: async () => {
     const response = await axiosInstance.get('/product/getProducts');
@@ -13,8 +12,13 @@ export const productsApi = {
     return response.data;
   },
 
-  getCartProducts: async (id: number) => {
-    const response = await axiosInstance.get(`/product/getCartProducts/${id}`);
+  getCartProducts: async (ids: number[]): Promise<IProduct[]> => {
+    const data = {
+      productsIds: ids
+    }
+    const response = await axiosInstance.post(`/product/getCartProducts/`, {
+      data
+    });
     return response.data;
   },
 

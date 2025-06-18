@@ -1,4 +1,4 @@
-import axiosInstance from './axios.config';
+import axiosInstance from "./axios.config";
 
 interface PaginationParams {
   skip?: number;
@@ -7,23 +7,26 @@ interface PaginationParams {
 
 export const adminApi = {
   getRegisteredUsers: async (params?: PaginationParams) => {
-    const response = await axiosInstance.get('/admin/user/getRegisteredUsers', { params });
+    const response = await axiosInstance.get("/admin/user/getRegisteredUsers", {
+      params,
+    });
     return response.data;
   },
 
-
   getDealerRequests: async () => {
-    const response = await axiosInstance.get('/admin/dealer/dealerRequests');
+    const response = await axiosInstance.get("/admin/dealer/dealerRequests");
     return response.data;
   },
 
   getAdmins: async () => {
-    const response = await axiosInstance.get('/admin/user/getAdmins');
+    const response = await axiosInstance.get("/admin/user/getAdmins");
     return response.data;
   },
 
   filterUsersByRole: async (role: string) => {
-    const response = await axiosInstance.get(`/admin/user/filterUsersByRole/${role}`);
+    const response = await axiosInstance.get(
+      `/admin/user/filterUsersByRole/${role}`
+    );
     return response.data;
   },
 
@@ -33,23 +36,22 @@ export const adminApi = {
   },
 
   getPaginatedUsers: async ({ skip, take = 5 }: PaginationParams) => {
-    const response = await axiosInstance.get('/admin/user/pagination', {
-      params: { skip, take }
+    const response = await axiosInstance.get("/admin/user/pagination", {
+      params: { skip, take },
     });
     return response.data;
   },
-  acceptRequest: async (userId: string, requestId: string) => {
-    const response = await axiosInstance.put('/admin/dealer/acceptRequest', {
-      userId,
-      id: requestId
+  acceptRequest: async (id: string) => {
+    const response = await axiosInstance.put("/admin/dealer/acceptRequest", {
+      id,
     });
     return response.data;
   },
 
   denyRequest: async (requestId: string) => {
-    const response = await axiosInstance.delete('/admin/dealer/denieRequest', {
-      data: { id: requestId }
+    const response = await axiosInstance.delete("/admin/dealer/denieRequest", {
+      data: { id: requestId },
     });
     return response.data;
-  }
-}; 
+  },
+};

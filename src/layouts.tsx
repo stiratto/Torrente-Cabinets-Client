@@ -9,7 +9,7 @@ export const Layout = () => {
     <>
       <Navbar />
       <Outlet    />
-      <Toaster />
+      <Toaster toastOptions={{className: "!shadow-xl text-sm border", icon: <></>}} position="bottom-right"/>
   
       <TestPage/>
       <ScrollRestoration/>

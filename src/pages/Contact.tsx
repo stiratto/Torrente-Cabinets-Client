@@ -60,7 +60,7 @@ export const Contact = () => {
       <div className="flex flex-col  gap-8 xl:flex-row lg:gap-5  my-20">
         <div className="text-start max-w-4xl ">
           <div className="flex flex-col   gap-2 ">
-            <h1 className="text-5xl text-start font-serif  ">Contact us</h1>
+            <h1 className="text-5xl text-start ">Contact us</h1>
             <p className="">
               We'd love to hear from you! Feel free to reach out and share your
               thoughts, ideas, or anything else you'd like to discuss. We're

@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 const PrivateDealerRoute = ({ children }: {children: ReactNode}) => {
   const { user } = useUserContext()
-  return (user && (user?.role === "DEALER" || "ADMIN")) ? children : <Navigate to={"/torrentekcb/becomeadealer"} />;
+  return user?.role === "DEALER" || user?.role === "ADMIN" ? children : <Navigate to={"/torrentekcb/becomeadealer"} />;
 };
 
 export default PrivateDealerRoute;

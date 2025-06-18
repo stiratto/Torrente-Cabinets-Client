@@ -7,7 +7,7 @@ const Designs = () => {
         <div className="absolute inset-0  bg-[url('https://images.unsplash.com/photo-1612769732688-b7d111799dca?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]  bg-cover bg-no-repeat"></div>
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 text-white max-w-2xl mx-auto flex flex-col gap-4">
-          <h1 className="text-8xl font-serif">Designs</h1>
+          <h1 className="text-8xl">Designs</h1>
           <p className="bg-black bg-opacity-50 p-3 text-start md:text-center rounded-xl">
             Celebrate the variety in our Torrente showrooms, where we showcase
             an array of kitchen and bathroom designs and options. Explore our

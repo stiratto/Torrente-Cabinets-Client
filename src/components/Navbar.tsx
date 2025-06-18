@@ -13,6 +13,7 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -51,18 +52,18 @@ export default function Navbar() {
       icon: <ShoppingCart size={15} />,
     },
   ];
-  // Decodificar el token y acceder a la propiedad 'name'
-  // Decodificar el token y acceder a la propiedad 'name'
+
   return (
-    <nav className="sticky top-0 z-50   bg-white w-full border-b md:border-0 shadow-lg xl:px-32">
+    <nav className="sticky top-0 z-50   bg-white w-full border-b-2 border-black/20 shadow-lg xl:px-32 ">
+
       <div className="flex  " aria-label="primary menu">
         <Sheet>
           <div className="flex items-center justify-between w-full  py-3 md:py-5 md:flex md:justify-between  ">
-            <Link to="/" className="flex items-center gap-5 ">
+            <Link to="/" className="flex items-center gap-5 p-2">
               <img
-                src="https://i0.wp.com/torrente15.files.wordpress.com/2023/11/adsadsasd.png?ssl=1"
+                src="https://torrente-cabinets-aws.s3.us-east-2.amazonaws.com/ChatGPT+Image+Jun+16%2C+2025%2C+01_49_56+PM+(1).png"
                 alt="torrente logo"
-                className="h-10 lg :h-auto"
+                className="w-48 h-10 object-contain"
               />
               <p className="text-2xl font-extrabold tracking-tight lg:text-4xl xl:5xl animate-in bg-gradient-to-r from-red-500 to-amber-300 bg-clip-text text-transparent"></p>
             </Link>
@@ -83,12 +84,12 @@ export default function Navbar() {
               <ul className="flex w-max items-center gap-4 ">
                 {menus.map((item, idx) => (
                   <li
-                    className="group flex   items-center gap-1   hover:text-yellow-500 active:scale-105 duration-200 transition-all "
+                    className="group flex items-center gap-1   hover:text-yellow-500 active:scale-105 duration-200 transition-all"
                     key={idx}
                   >
                     {item.icon}
                     <Link to={item.path}>
-                      <p className="text-md  tracking-wide font-medium uppercase">
+                      <p className="text-lg  tracking-wide uppercase font-medium">
                         {item.title}
                       </p>
                     </Link>
@@ -116,7 +117,7 @@ export default function Navbar() {
             {/* Mobile part */}
             {/* Mobile part */}
             {/* Mobile part */}
-            <SheetContent className="flex flex-col items-start gap-5 font-medium overflow-y-auto">
+            <SheetContent className="flex flex-col items-start gap-5 font-medium overflow-y-auto" side={"bottom"}>
               {menus.map((item, idx) => (
                 <SheetHeader
                   key={idx}
@@ -133,7 +134,6 @@ export default function Navbar() {
 
               <div className="">
                 <div className="flex flex-col items-start gap-4">
-                  {/* If user role is dealer, then dont show the become a dealer button, else, show the button */}
                   {user?.role === "DEALER" ? (
                     ""
                   ) : (
@@ -142,10 +142,10 @@ export default function Navbar() {
                     </SheetHeader>
                   )}
 
-                  {/* If user is logged (user is true), then show the Account dropdown menu, else, show the auth dropdown menu */}
                 </div>
               </div>
             </SheetContent>
+            <SheetDescription></SheetDescription>
           </div>
         </Sheet>
       </div>
